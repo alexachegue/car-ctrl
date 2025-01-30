@@ -17,7 +17,7 @@ An application that connects customers with local mechanics and auto service pro
     iv. Write reviews for subscribed services - Provide feedback and rate the quality of service.
 
 2. Provider (Mechanic/Auto Shop):
-    i. Create/modify/remove provider profile - Provider can create account and register as mechanic.
+    i. Create/modify/remove provider profile - Provider can create account and register as mechanic. 
     ii. Create services - Display if they provide AC installation/repair, Battery, Brakes, Electrical repair, Engine maintenance, Oil changes, Tire repair, Inspection, and/or Wheel alignment, etc. Show booked/unbooked times for users to book. 
     iii. View customer statistics -  View booked times, their required service, car make/model, and cost.
     iv. Reply to reviews - Reply to customer reviews.
