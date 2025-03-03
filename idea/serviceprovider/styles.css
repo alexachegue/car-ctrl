@@ -63,7 +63,6 @@ text-decoration: none;
 
 .main-content {
  margin-left: 250px;
- /*padding: 20px;*/
  flex: 1;
 }
 
@@ -72,10 +71,10 @@ text-decoration: none;
 .container {
  position: relative;
  text-align: center;
- padding-left: 0 !important; /* Remove left padding */
- padding-right: 0 !important; /* Remove right padding */
- margin-left: 0 !important; /* Remove left margin */
- margin-right: 0 !important; /* Remove right margin */
+ padding-left: 0 !important;
+ padding-right: 0 !important;
+ margin-left: 0 !important;
+ margin-right: 0 !important
 }
 
 
@@ -84,7 +83,6 @@ text-decoration: none;
  height: 380px;
  background: url('https://www.gtspiritmedia.com/gtspirit/gallery/lamborghini-gallardo-superleggera/lamborghini-gallardo-superleggera-13.jpg') no-repeat center center/cover;
  position: relative;
- /*z-index: 1; /* Ensure it's below other elements */
 }
 
 
@@ -103,13 +101,13 @@ text-decoration: none;
 /* Profile Card */
 .profile-card {
  display: flex;
- flex-direction: column; /* Stacks the content vertically */
- align-items: center; /* Centers the content horizontally */
- justify-content: center; /* Centers the content vertically if needed */
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
  text-align: center;
  position: relative;
- z-index: 3; /* Bring profile card above the background */
- margin-top: -80px; /* Pull it up to overlap the background */
+ z-index: 3;
+ margin-top: -80px;
 }
 
 
@@ -205,7 +203,7 @@ p {
 
 
 .btn-primary:hover {
- background-color: rgba(201, 27, 0, 0.8); /* Change to blue on hover */
+ background-color: rgba(201, 27, 0, 0.8);
  transform: scale(1.05); /* Slight zoom effect on hover */
  color: white; /* Dark text color on hover */
 }
