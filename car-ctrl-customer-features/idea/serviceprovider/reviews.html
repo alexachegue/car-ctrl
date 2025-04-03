@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <title>Manage Reviews</title>
+</head>
+<body>
+<div class="container-fluid">
+    <!-- Sidebar -->
+    <nav class="sidebar">
+        <a class="nav-link" href="index.html"><i class="bi bi-house-door"></i> Home</a>
+        <a class="nav-link" href="profile.html"><i class="bi bi-person"></i> Profile</a>
+        <a class="nav-link" href="bookings.html"><i class="bi bi-calendar-check"></i> Booked</a>
+        <a class="nav-link" href="services.html"><i class="bi bi-tools"></i> Services</a>
+        <a class="nav-link" href="Alerts.html"><i class="bi bi-bell"></i> Alerts</a>
+        <a class="nav-link active" href="reviews.html"><i class="bi bi-chat-left-text"></i> Reviews</a>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h2>Manage Reviews</h2>
+
+        <!-- Statistics Summary -->
+        <div class="card mb-4">
+            <div class="card-body">
+                <p><strong>Total Reviews:</strong> 25</p>
+                <p><strong>Average Rating:</strong> 4.5/5</p>
+                <p><strong>Replied Reviews:</strong> 18 (72%)</p>
+            </div>
+        </div>
+
+        <!-- Filter and Search -->
+        <div class="mb-3">
+            <input type="text" class="form-control mb-2" id="searchReviews" placeholder="Search reviews...">
+            <select class="form-select" id="filterReviews">
+                <option value="all">All Reviews</option>
+                <option value="positive">Positive (4-5 stars)</option>
+                <option value="neutral">Neutral (3 stars)</option>
+                <option value="negative">Negative (1-2 stars)</option>
+                <option value="unreplied">Unreplied</option>
+            </select>
+        </div>
+
+        <!-- Reviews List -->
+        <div class="reviews-list">
+            <div class="review-item mb-4">
+                <p><strong>Customer:</strong> John Doe</p>
+                <p><strong>Service:</strong> Oil Change</p>
+                <p><strong>Rating:</strong> ⭐⭐⭐⭐⭐</p>
+                <p>"Great service! Highly recommend."</p>
+
+                <!-- Reply Section -->
+                <form>
+                    <textarea class="form-control mb-2" rows="2" placeholder="Write your reply here..."></textarea>
+                    <button type="submit" class="btn btn-primary btn-sm">Submit Reply</button>
+                </form>
+            </div>
+
+            <div class="review-item mb-4">
+                <p><strong>Customer:</strong> Jane Smith</p>
+                <p><strong>Service:</strong> Tire Replacement</p>
+                <p><strong>Rating:</strong> ⭐⭐⭐</p>
+                <p>"The service was okay, but it took longer than expected."</p>
+                <p><em>Reply: "Thank you for the feedback! We'll work on improving our efficiency."</em></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Example: Filter Reviews
+    const searchInput = document.getElementById('searchReviews');
+    const filterSelect = document.getElementById('filterReviews');
+    const reviewItems = document.querySelectorAll('.review-item');
+
+    searchInput.addEventListener('input', () => {
+        const query = searchInput.value.toLowerCase();
+        reviewItems.forEach(item => {
+            item.style.display = item.textContent.toLowerCase().includes(query) ? '' : 'none';
+        });
+    });
+
+    filterSelect.addEventListener('change', () => {
+        const filter = filterSelect.value;
+        reviewItems.forEach(item => {
+            const rating = item.querySelector('strong:nth-of-type(3)').textContent.includes('⭐⭐⭐⭐⭐') ? 'positive' :
+                           item.querySelector('strong:nth-of-type(3)').textContent.includes('⭐⭐⭐') ? 'neutral' : 'negative';
+
+            if (filter === 'all' || filter === rating || (filter === 'unreplied' && !item.querySelector('em'))) {
+                item.style.display = '';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+</script>
+</body>
+</html>
