@@ -9,10 +9,17 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
+
+
 @Entity
 @Table(name = "appointments")
 public class Appointment {
 
+    public enum Status {
+        Scheduled,
+        Pending,
+        Cancelled
+    }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int appointmentId;
@@ -34,14 +41,16 @@ public class Appointment {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date appointmentDate;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
 
     @Column(name = "created_at", updatable = false, insertable = false, columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private Timestamp createdAt;
 
     public Appointment(){}
 
-    public Appointment(User user, Service service, Car car, String description, String status, Date appointmentDate){
+    public Appointment(User user, Service service, Car car, String description, Status status, Date appointmentDate){
         this.user = user;
         this.service = service;
         this.car = car;
@@ -72,9 +81,9 @@ public class Appointment {
 
     public void setAppointmentDate(Date appointmentDate) { this.appointmentDate = appointmentDate; }
 
-    public String getStatus() { return status; }
+    public Status getStatus() { return status; }
 
-    public void setStatus(String status) { this.status = status; }
+    public void setStatus(Status status) { this.status = status; }
 
     public Timestamp getCreatedAt() { return createdAt; }
 

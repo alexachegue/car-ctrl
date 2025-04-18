@@ -28,6 +28,7 @@ public class UserService {
         return userRepository.findById(userId).orElse(null);
     }
 
+
     /**
      * Fetch a User by username.
      * @param username a username

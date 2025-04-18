@@ -50,6 +50,9 @@ public class UserController {
      */
     @PostMapping("/register")
     public Object addNewUser(@RequestBody User user){
+        if (user.getCars() != null) {
+            user.getCars().forEach(car -> car.setUser(user));
+        }
         System.out.println("Received user: " + user);
         service.addNewUser(user);
         return new ResponseEntity<>("New User Successfully Created!", HttpStatus.CREATED);
