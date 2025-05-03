@@ -102,9 +102,12 @@ public class UserController {
 
         service.addNewUser(user);
         session.setAttribute("loggedInUser", user);
+        session.setAttribute("userId", user.getUserId());
+
         return "redirect:/cars/register-car";
     }
-    
+
+
     /**
      * Show login form (MVC)
      */
@@ -120,21 +123,17 @@ public class UserController {
     @PostMapping("/login-page")
     public String handleLogin(@ModelAttribute User user, HttpSession session, Model model) {
         User foundUser = service.getByUsername(user.getUsername());
-        session.setAttribute("loggedInUser", foundUser);
-
 
         if (foundUser == null || !foundUser.getPassword().equals(user.getPassword())) {
             model.addAttribute("error", "Invalid credentials");
             return "login";
         }
 
-        // OPTIONAL: Only if you want to check for a car
-        // Car car = carService.getCarByUser(foundUser.getUserId());
-        // if (car == null) {
-        //     return "redirect:/cars/register-car";
-        // }
+        session.setAttribute("loggedInUser", foundUser);
+        session.setAttribute("userId", foundUser.getUserId());
 
         return "redirect:/users/home-page";
+
     }
 
     /**

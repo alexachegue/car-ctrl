@@ -73,7 +73,7 @@ p, li, span {
 .nav-logo {
     display: block;
     margin: 10px auto 15px auto;
-    width: 50%;
+    width: 25%;
     max-width: 50px;
     height: auto;
 }
@@ -96,7 +96,7 @@ p, li, span {
 .btn-primary{
     background-color: #9c0000;
     color: white;
-    font-weight: 600;
+    font-weight: 200;
     border-color: black;
 }
 

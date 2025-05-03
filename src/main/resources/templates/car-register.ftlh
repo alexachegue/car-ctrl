@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CarCtrl Home</title>
+    <title>CarCtrl</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
@@ -28,22 +28,22 @@
                 <div class="card-body">
                     <form action="/cars/register-car" method="post">
                         <div class="form-group mb-3">
-                            <label for="make">Make</label>
+                            <label class = "form-label" for="make">Make</label>
                             <input type="text" id="make" name="make" class="form-control" required>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="model">Model</label>
+                            <label class ="form-label" for="model">Model</label>
                             <input type="text" id="model" name="model" class="form-control" required>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="year">Year</label>
+                            <label class ="form-label" for="year">Year</label>
                             <input type="number" id="year" name="year" class="form-control" required>
                         </div>
 
                         <div class="form-group mb-3">
-                            <label for="color">Color</label>
+                            <label class ="form-label" for="color">Color</label>
                             <input type="text" id="color" name="color" class="form-control">
                         </div>
 
@@ -54,6 +54,5 @@
         </div>
     </div>
 </div>
-
 </body>
 </html>

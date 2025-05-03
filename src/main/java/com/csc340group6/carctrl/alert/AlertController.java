@@ -1,47 +1,30 @@
 package com.csc340group6.carctrl.alert;
 
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/alerts")
 public class AlertController {
 
     @Autowired
-    private AlertService alertService;
+    private AlertRepository alertRepository;
 
-    // Endpoint to create a new alert
-    @PostMapping("/create")
-    public ResponseEntity<Alert> createAlert(@RequestBody Alert alert) {
-        Alert newAlert = alertService.createAlert(
-                alert.getProviderId(),
-                alert.getUserId(),
-                alert.getAppointmentId(),
-                alert.getAlertType(),
-                alert.getMessage()
-        );
-        return ResponseEntity.ok(newAlert);
-    }
+    @GetMapping
+    public String showAlerts(HttpSession session, Model model) {
+        Object userIdObj = session.getAttribute("userId");
+        if (userIdObj == null) return "redirect:/users/login-page";
 
-    // Endpoint to get all alerts for a specific provider
-    @GetMapping("/provider/{providerId}")
-    public List<Alert> getAlertsByProviderId(@PathVariable int providerId) {
-        return alertService.getAlertsByProviderId(providerId);
-    }
+        int userId = (int) userIdObj;
 
-    // Endpoint to get all alerts for a specific provider and alert type
-    @GetMapping("/provider/{providerId}/type/{alertType}")
-    public List<Alert> getAlertsByProviderIdAndAlertType(@PathVariable int providerId, @PathVariable String alertType) {
-        return alertService.getAlertsByProviderIdAndAlertType(providerId, alertType);
-    }
-
-    // Endpoint to get all alerts for a specific appointment
-    @GetMapping("/appointment/{appointmentId}")
-    public List<Alert> getAlertsByAppointmentId(@PathVariable int appointmentId) {
-        return alertService.getAlertsByAppointmentId(appointmentId);
+        List<Alert> alerts = alertRepository.findByUser_UserIdOrderByCreatedAtDesc(userId);
+        model.addAttribute("alerts", alerts);
+        return "alerts";
     }
 }
-

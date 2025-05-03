@@ -2,6 +2,8 @@ package com.csc340group6.carctrl.subscription;
 
 import com.csc340group6.carctrl.car.Car;
 import com.csc340group6.carctrl.car.CarRepository;
+import com.csc340group6.carctrl.provider.Provider;
+import com.csc340group6.carctrl.provider.ProviderRepository;
 import com.csc340group6.carctrl.services.CarServiceRepository;
 import com.csc340group6.carctrl.services.CarService;
 import com.csc340group6.carctrl.user.User;
@@ -19,6 +21,9 @@ public class AppointmentService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ProviderRepository providerRepository;
 
     @Autowired
     private CarRepository carRepository;
@@ -43,12 +48,15 @@ public class AppointmentService {
                 .orElseThrow(() -> new RuntimeException("User not found"));
         Car car = carRepository.findById(appointment.getCar().getCarId())
                 .orElseThrow(() -> new RuntimeException("Car not found"));
-        CarService carService = serviceRepository.findById(appointment.getCarService().getCarServiceId())
+        CarService service = serviceRepository.findById(appointment.getService().getServiceId())
                 .orElseThrow(() -> new RuntimeException("Service not found"));
+        Provider provider = providerRepository.findById(appointment.getProvider().getProviderId())
+                .orElseThrow(() -> new RuntimeException("Provider not found"));
 
         appointment.setUser(user);
         appointment.setCar(car);
-        appointment.setCarService(carService);
+        appointment.setService(service);
+        appointment.setProvider(provider);
 
         return appointmentRepository.save(appointment);
     }

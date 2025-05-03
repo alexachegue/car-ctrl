@@ -1,6 +1,7 @@
 package com.csc340group6.carctrl.subscription;
 
 import com.csc340group6.carctrl.car.Car;
+import com.csc340group6.carctrl.provider.Provider;
 import com.csc340group6.carctrl.services.CarService;
 import com.csc340group6.carctrl.user.User;
 import jakarta.persistence.*;
@@ -27,6 +28,10 @@ public class Appointment {
     private User user;
 
     @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private Provider provider;
+
+    @ManyToOne
     @JoinColumn(name = "service_id", nullable = false)
     private CarService service;
 
@@ -48,8 +53,9 @@ public class Appointment {
 
     public Appointment(){}
 
-    public Appointment(User user, CarService service, Car car, String description, Status status, Date appointmentDate){
+    public Appointment(User user, Provider provider, CarService service, Car car, String description, Status status, Date appointmentDate){
         this.user = user;
+        this.provider = provider;
         this.service = service;
         this.car = car;
         this.description = description;
@@ -59,13 +65,36 @@ public class Appointment {
 
     public int getAppointmentId() { return appointmentId; }
 
+    public void setAppointmentId(int appointmentId){
+        this.appointmentId = appointmentId;
+    }
     public User getUser() { return user; }
 
     public void setUser(User user) { this.user = user; }
 
-    public CarService getCarService() { return service; }
+    public int getServiceId(){
+        return service.getServiceId();
+    }
 
-    public void setCarService(CarService service) { this.service = service; }
+    public void setServiceId(CarService service){
+        this.service = service;
+    }
+
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public String getProviderName() {
+        return provider.getProvidername();
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
+    }
+
+    public CarService getService() { return service; }
+
+    public void setService(CarService service) { this.service = service; }
 
     public Car getCar() { return car; }
 

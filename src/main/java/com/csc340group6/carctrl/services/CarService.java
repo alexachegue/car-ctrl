@@ -1,6 +1,9 @@
 package com.csc340group6.carctrl.services;
 
+import com.csc340group6.carctrl.provider.Provider;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity(name="CarService")
 @Table(name = "services")
@@ -23,6 +26,13 @@ public class CarService {
     private String name;
     private String description;
 
+    @ManyToMany(mappedBy = "services")
+    private List<Provider> providers;
+
+    public List<Provider> getProviders() {
+        return providers;
+    }
+
     public CarService() {}
 
     public CarService(int serviceId, ServiceCategory category, String name, String description) {
@@ -32,11 +42,11 @@ public class CarService {
         this.description = description;
     }
 
-    public int getCarServiceId() {
+    public int getServiceId() {
         return serviceId;
     }
 
-    public void setCarServiceId(int serviceId) {
+    public void setServiceId(int serviceId) {
         this.serviceId = serviceId;
     }
 
@@ -63,4 +73,9 @@ public class CarService {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public void setProviders(List<Provider> providers) {
+        this.providers = providers;
+    }
+
 }

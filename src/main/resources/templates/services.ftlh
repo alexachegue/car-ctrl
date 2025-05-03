@@ -16,40 +16,43 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-    <div class="header">CarCtrl</div>
-    <div class="d-flex">
-        <nav class="nav flex-column p-3 vh-100 text-white" style="width: 250px; position: fixed; height: 100%;">
-            <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4" style="max-width: 100%;">
-            <a class="nav-link text-white" href="/users/home-page"><i class="bi bi-house-door"></i> Home</a>
-            <a class="nav-link text-white" href="/services/explore"><i class="bi bi-search"></i> Explore</a>
-            <a class="nav-link text-white" href="/users/alerts-page"><i class="bi bi-bell"></i> Alerts</a>
-            <a class="nav-link text-white" href="/users/service-history-page"><i class="bi bi-journal-check"></i> Service
-                History</a>
-            <a class="nav-link text-white" href="/users/profile-page"><i class="bi bi-person"></i> Profile</a>
-        </nav>
-    </div>
-<div class = "main-content">
+<div class="header">CarCtrl</div>
+<div class="d-flex">
+    <nav class="nav flex-column p-3 vh-100 text-white" style="width: 250px; position: fixed; height: 100%;">
+        <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4" style="max-width: 100%;">
+        <a class="nav-link text-white" href="/users/home-page"><i class="bi bi-house-door"></i> Home</a>
+        <a class="nav-link text-white" href="/services/explore"><i class="bi bi-search"></i> Explore</a>
+        <a class="nav-link text-white" href="/alerts"><i class="bi bi-bell"></i> Alerts</a>
+        <a class="nav-link text-white" href="/appointments/service-history-page"><i class="bi bi-journal-check"></i> Service History</a>
+        <a class="nav-link text-white" href="/users/profile-page"><i class="bi bi-person"></i> Profile</a>
+    </nav>
+</div>
+
+<div class="main-content">
     <h1>All Services</h1>
 
     <#if selectedCategory??>
     <h2>Category: ${selectedCategory?capitalize}</h2>
     </#if>
 
-<#if services?? && (services?size > 0)>
-<div class="card-container">
-    <#list services as service>
-    <div class="card">
-        <div class="card-title">${service.name} </div>
-        <div class="card-text">${service.description} </div>
-
-        <p><strong>Find Providers</strong> </p>
+    <#if services?? && (services?size > 0)>
+    <div class="card-container">
+        <#list services as service>
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title">${service.name}</h5>
+                <p class="card-text">${service.description}</p>
+                <p class="card-text">
+                    <small class="text-muted">Category: ${service.serviceCategory}</small>
+                </p>
+                <a href="/providers/by-service/${service.serviceId}" class="btn btn-primary">View Providers</a>
+            </div>
+        </div>
+        </#list>
     </div>
-</#list>
-</div>
-<#else>
-<p>No services found.</p>
-</#if>
-
+    <#else>
+    <p>No services found.</p>
+    </#if>
 </div>
 </body>
 </html>

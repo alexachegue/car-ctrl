@@ -7,14 +7,10 @@ import java.util.List;
 
 @Repository
 public interface AlertRepository extends JpaRepository<Alert, Integer> {
+    List<Alert> findByUser_UserIdOrderByCreatedAtDesc(int userId);
 
-    // Get all alerts for a specific provider
-    List<Alert> findByProviderId(int providerId);
+    List<Alert> findByProvider_ProviderId(int providerId);
+    List<Alert> findByProvider_ProviderIdAndAlertType(int providerId, Alert.AlertType alertType);
+    List<Alert> findByAppointment_AppointmentId(int appointmentId);
 
-    // Get all alerts for a specific provider and alert type
-    List<Alert> findByProviderIdAndAlertType(int providerId, String alertType);
-
-    // Get all alerts for a specific appointment
-    List<Alert> findByAppointmentId(int appointmentId);
 }
-

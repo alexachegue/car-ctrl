@@ -57,4 +57,8 @@ public class ProviderService {
         return providerRepository.findByStatus(status);
     }
 
+    public List<Provider> getProvidersByService(int serviceId) {
+        return providerRepository.findByServices_ServiceId(serviceId);
+    }
+
 }

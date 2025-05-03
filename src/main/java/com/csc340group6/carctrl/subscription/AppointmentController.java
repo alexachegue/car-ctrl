@@ -1,10 +1,23 @@
 package com.csc340group6.carctrl.subscription;
 
+import com.csc340group6.carctrl.car.Car;
+import com.csc340group6.carctrl.car.CarRepository;
+import com.csc340group6.carctrl.provider.Provider;
+import com.csc340group6.carctrl.provider.ProviderRepository;
+import com.csc340group6.carctrl.services.CarService;
+import com.csc340group6.carctrl.services.CarServiceRepository;
+import com.csc340group6.carctrl.services.CarServiceService;
+import com.csc340group6.carctrl.user.User;
+import com.csc340group6.carctrl.user.UserRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -14,36 +27,96 @@ public class AppointmentController {
     @Autowired
     private AppointmentService appointmentService;
 
-    /**
-    @GetMapping("/all")
-    public List<Appointment> getAllAppointments() {
-        return appointmentService.getAllAppointments();
+    @Autowired
+    private CarRepository carRepository;
+
+    @Autowired
+    private CarServiceRepository serviceRepository;
+
+    @Autowired
+    private UserRepository userRepository;
+    
+    @Autowired
+    private ProviderRepository providerRepository;
+
+    @Autowired
+    private CarServiceRepository carServiceRepository;
+
+    @Autowired
+    private CarServiceService carServiceService;
+
+    @GetMapping("/form")
+    public String showAppointmentForm(@RequestParam("providerId") int providerId,
+                                      @RequestParam("serviceId") int serviceId,
+                                      HttpSession session, Model model) {
+        if (session.getAttribute("userId") == null) {
+            return "redirect:/users/login-page";
+        }
+
+        int userId = (int) session.getAttribute("userId");
+        User user = userRepository.findById(userId).orElseThrow();
+
+        Provider provider = providerRepository.findById(providerId).orElseThrow();
+        CarService service = serviceRepository.findById(serviceId).orElseThrow();
+
+        Appointment appointment = new Appointment();
+        appointment.setUser(user);
+        appointment.setProvider(provider);
+        appointment.setService(service);
+
+        model.addAttribute("appointment", appointment);
+        model.addAttribute("cars", carRepository.findCarsByUser(userId));
+        model.addAttribute("services", serviceRepository.findAll());
+        model.addAttribute("providers", providerRepository.findAll());
+
+        return "appointment-form";
     }
 
-    @GetMapping("/user/{userId}")
-    public List<Appointment> getAppointmentsByUserId(@PathVariable int userId) {
-        return appointmentService.getAppointmentsByUserId(userId);
-    }
-
-    @GetMapping("/{id}")
-    public Appointment getAppointment(@PathVariable int id) {
-        return appointmentService.getAppointmentById(id);
-    }
 
     @PostMapping("/create")
-    public Appointment createAppointment(@RequestBody Appointment appointment) {
-        return appointmentService.createAppointment(appointment);
+    public String createAppointmentFromForm(HttpSession session,
+                                            @RequestParam int carId,
+                                            @RequestParam int serviceId,
+                                            @RequestParam int providerId,
+                                            @RequestParam String appointmentDate,
+                                            @RequestParam(required = false) String description) {
+        int userId = (int) session.getAttribute("userId");
+
+        Appointment appointment = new Appointment();
+        appointment.setUser(userRepository.findById(userId).orElseThrow());
+        appointment.setCar(carRepository.findById(carId).orElseThrow());
+        appointment.setService(serviceRepository.findById(serviceId).orElseThrow());
+        appointment.setProvider(providerRepository.findById(providerId).orElseThrow());
+        appointment.setAppointmentDate(Timestamp.valueOf(appointmentDate.replace("T", " ") + ":00"));
+        appointment.setDescription(description);
+        appointment.setStatus(Appointment.Status.Pending);
+
+        appointmentService.createAppointment(appointment);
+        return "redirect:/appointments/confirmation/" + appointment.getAppointmentId();
     }
 
-    @PutMapping("/update/{id}")
-    public Appointment updateAppointment(@PathVariable int id, @RequestBody Appointment updated) {
-        return appointmentService.updateAppointment(id, updated);
+
+    @GetMapping("/confirmation/{appointmentId}")
+    public String showConfirmation(@PathVariable int appointmentId, HttpSession session, Model model) {
+        Appointment appointment = appointmentService.getAppointmentById(appointmentId);
+        User user = (User) session.getAttribute("loggedInUser");
+
+        model.addAttribute("appointment", appointment);
+        model.addAttribute("user", user);
+        return "appointment-confirmation";
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<?> deleteAppointment(@PathVariable int id) {
-        appointmentService.deleteAppointment(id);
-        return ResponseEntity.ok().build();
+    @GetMapping("/service-history-page")
+    public String viewAppointmentHistory(HttpSession session, Model model) {
+        Object userIdObj = session.getAttribute("userId");
+        if (userIdObj == null) return "redirect:/users/login-page";
+
+        int userId = (int) userIdObj;
+        List<Appointment> appointments = appointmentService.getAppointmentsByUserId(userId);
+
+        model.addAttribute("appointments", appointments);
+        model.addAttribute("now", new Date());
+        return "service-history";
     }
-    **/
+
 }

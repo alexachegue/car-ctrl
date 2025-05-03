@@ -1,8 +1,10 @@
 package com.csc340group6.carctrl.provider;
 
+import com.csc340group6.carctrl.services.CarService;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "providers")
@@ -44,6 +46,14 @@ public class Provider {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @Temporal(TemporalType.TIMESTAMP)
     private Date activeDate;
+
+    @ManyToMany
+    @JoinTable(
+            name = "provider_services",
+            joinColumns = @JoinColumn(name = "provider_id"),
+            inverseJoinColumns = @JoinColumn(name = "service_id")
+    )
+    private List<CarService> services;
 
     // Constructors
     public Provider() {}
@@ -155,4 +165,13 @@ public class Provider {
     public void setActiveDate(Date activeDate) {
         this.activeDate = activeDate;
     }
+
+    public List<CarService> getServices() {
+        return services;
+    }
+
+    public void setServices(List<CarService> services) {
+        this.services = services;
+    }
+
 }

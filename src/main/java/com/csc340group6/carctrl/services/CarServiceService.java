@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 public class CarServiceService {
@@ -18,8 +19,12 @@ public class CarServiceService {
     public List<CarService> getCarServicesByCategory(CarService.ServiceCategory category) {
         return carServiceRepository.findByCategory(category);
     }
-
     public void addCarService(CarService service) {
         carServiceRepository.save(service);
     }
+
+    public CarService getCarServiceById(int id) {
+        return carServiceRepository.findById(id).orElse(null);
+    }
+
 }

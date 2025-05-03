@@ -1,17 +1,30 @@
 package com.csc340group6.carctrl.provider;
+import com.csc340group6.carctrl.services.CarService;
+import com.csc340group6.carctrl.services.CarServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import com.csc340group6.carctrl.services.CarServiceRepository;
 
 import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/providers")
 public class ProviderController {
 
     @Autowired
-    private ProviderService service;
+    private ProviderService providerService;
+
+    @Autowired
+    private CarServiceRepository carServiceRepository;
+
+    @Autowired
+    private CarServiceService carServiceService;
+
+    /**
 
     // Get a list of all Providers
     @GetMapping("/all")
@@ -44,5 +57,25 @@ public class ProviderController {
     public ResponseEntity<List<Provider>> deleteProviderById(@PathVariable int providerId) {
         service.deleteProviderById(providerId);
         return new ResponseEntity<>(service.getAllProviders(), HttpStatus.OK);
+    }
+
+     **/
+
+
+    @GetMapping("/{providerId}/services")
+    public ResponseEntity<List<CarService>> getServicesByProvider(@PathVariable int providerId) {
+        Provider provider = providerService.getProviderById(providerId);
+        return new ResponseEntity<>(provider.getServices(), HttpStatus.OK);
+    }
+
+    @GetMapping("/by-service/{serviceId}")
+    public String getProvidersByService(@PathVariable int serviceId, Model model) {
+        List<Provider> providers = providerService.getProvidersByService(serviceId);
+        CarService service = carServiceService.getCarServiceById(serviceId);
+
+        model.addAttribute("service", service);
+        model.addAttribute("providers", providers);
+
+        return "providers-by-service";
     }
 }

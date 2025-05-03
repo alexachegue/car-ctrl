@@ -111,7 +111,7 @@ public class CarController {
         car.setUser(user);
         carService.addNewCar(car);
 
-        return "redirect:/users/home-page";
+        return "redirect:/users/profile-page";
     }
 
 
