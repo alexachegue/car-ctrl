@@ -53,6 +53,8 @@
     <#else>
     <p>No services found.</p>
     </#if>
+
+<a href="/services/explore" class="btn btn-outline-dark mt-2"> Back </a>
 </div>
 </body>
 </html>

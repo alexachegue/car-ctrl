@@ -61,7 +61,6 @@ public class ProviderController {
 
      **/
 
-
     @GetMapping("/{providerId}/services")
     public ResponseEntity<List<CarService>> getServicesByProvider(@PathVariable int providerId) {
         Provider provider = providerService.getProviderById(providerId);
@@ -73,9 +72,13 @@ public class ProviderController {
         List<Provider> providers = providerService.getProvidersByService(serviceId);
         CarService service = carServiceService.getCarServiceById(serviceId);
 
-        model.addAttribute("service", service);
+        String category = service.getServiceCategory().name();
+
         model.addAttribute("providers", providers);
+        model.addAttribute("service", service);
+        model.addAttribute("category", category);
 
         return "providers-by-service";
     }
+
 }

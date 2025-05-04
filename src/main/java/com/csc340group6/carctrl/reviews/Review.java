@@ -1,5 +1,6 @@
 package com.csc340group6.carctrl.reviews;
 
+import com.csc340group6.carctrl.provider.Provider;
 import com.csc340group6.carctrl.subscription.Appointment;
 import com.csc340group6.carctrl.user.User;
 import jakarta.persistence.*;
@@ -13,6 +14,7 @@ public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name = "review_id", nullable = false)
     private int reviewId;
 
     @ManyToOne
@@ -23,7 +25,9 @@ public class Review {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    private int providerId;
+    @ManyToOne
+    @JoinColumn(name = "provider_id", nullable = false)
+    private Provider provider;
 
     private int rating;
 
@@ -38,26 +42,57 @@ public class Review {
 
     public Review() {}
 
-    public Review(Appointment appointment, User user, int providerId, int rating, String description) {
+    public Review(int reviewId, Appointment appointment, User user, Provider provider, int rating, String description) {
         this.appointment = appointment;
         this.user = user;
-        this.providerId = providerId;
+        this.provider = provider;
         this.rating = rating;
         this.description = description;
     }
 
-    public int getReviewId() { return reviewId; }
-    public Appointment getAppointment() { return appointment; }
-    public void setAppointment(Appointment appointment) { this.appointment = appointment; }
-    public User getUser() { return user; }
-    public void setUser(User user) { this.user = user; }
-    public int getProviderId() { return providerId; }
-    public void setProviderId(int providerId) { this.providerId = providerId; }
-    public int getRating() { return rating; }
-    public void setRating(int rating) { this.rating = rating; }
-    public String getDescription() { return description; }
-    public void setDescription(String description) { this.description = description; }
-    public String getProviderResponse() { return providerResponse; }
-    public void setProviderResponse(String providerResponse) { this.providerResponse = providerResponse; }
-    public Timestamp getCreatedAt() { return createdAt; }
+    public int getReviewId() {
+        return reviewId; }
+
+    public Appointment getAppointment() {
+        return appointment; }
+
+    public void setAppointment(Appointment appointment) {
+        this.appointment = appointment; }
+
+    public User getUser() {
+        return user; }
+
+    public void setUser(User user) {
+        this.user = user; }
+
+    public Provider getProvider() {
+        return provider; }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider; }
+
+    public int getRating() {
+        return rating; }
+
+    public void setRating(int rating) {
+        this.rating = rating; }
+
+    public String getDescription() {
+        return description; }
+
+    public void setDescription(String description) {
+        this.description = description; }
+
+    public String getProviderResponse() {
+        return providerResponse; }
+
+    public void setProviderResponse(String providerResponse) {
+        this.providerResponse = providerResponse; }
+
+    public Timestamp getCreatedAt() {
+        return createdAt; }
+
+    public void setCreatedAt(Timestamp time){
+        this.createdAt = time;
+    }
 }

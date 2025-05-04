@@ -1,6 +1,5 @@
 package com.csc340group6.carctrl.services;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,7 +29,6 @@ public class CarServiceController {
         model.addAttribute("selectedCategory", category.name());
         return "services";
     }
-
 
     /**
      * http://localhost:8081/service/all

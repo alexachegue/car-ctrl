@@ -30,7 +30,7 @@
 
 <div class="main-content">
     <div class="container mt-5">
-        <h2 class="text-white">Explore Service Categories</h2>
+        <h1>Explore Service Categories</h1>
         <div class="row">
             <#list categories as category>
             <div class="col-md-4">

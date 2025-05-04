@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ReviewService {
@@ -33,7 +34,7 @@ public class ReviewService {
     }
 
     public List<Review> getReviewsByProviderId(int providerId) {
-        return reviewRepository.findByProviderId(providerId);
+        return reviewRepository.findByProvider_ProviderId(providerId);
     }
 
     public Review createReview(Review review) {
@@ -55,6 +56,14 @@ public class ReviewService {
             return reviewRepository.save(review);
         }
         return null;
+    }
+
+    public Optional<Review> getReviewByAppointmentId(int appointmentId) {
+        return reviewRepository.findByAppointment_AppointmentId(appointmentId);
+    }
+
+    public void saveReview(Review review) {
+        reviewRepository.save(review);
     }
 
     public void deleteReview(int id) {

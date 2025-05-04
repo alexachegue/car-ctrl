@@ -60,7 +60,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Service History</h5>
                         <p class="card-text">Your digital record keeper.</p>
-                        <a href="/users/service-history-page" class="btn btn-primary">View</a>
+                        <a href="/appointments/service-history-page" class="btn btn-primary">View</a>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
                     <div class="card-body">
                         <h5 class="card-title">Alerts</h5>
                         <p class="card-text">Stay alert to upcoming services.</p>
-                        <a href="/users/alerts-page" class="btn btn-primary">View</a>
+                        <a href="/alerts" class="btn btn-primary">View</a>
                     </div>
                 </div>
             </div>

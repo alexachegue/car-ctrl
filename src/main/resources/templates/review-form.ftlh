@@ -11,12 +11,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 
-<header class="header">CarCtrl Navigation</header>
+<header class="header">CarCtrl Review</header>
 <div class="d-flex">
     <nav class="nav flex-column p-3 vh-100 text-white" style="width: 250px; position: fixed; height: 100%;">
         <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4" style="max-width: 100%;">
@@ -32,11 +31,27 @@
     <h2 class="mb-4">Leave a Review</h2>
     <form action="/reviews/submit" method="post" class="p-4 border rounded">
         <input type="hidden" name="user.userId" value="${review.user.userId?c}">
+        <input type="hidden" name="provider.providerId" value="${review.provider.providerId}">
         <input type="hidden" name="appointment.appointmentId" value="${review.appointment.appointmentId?c}">
 
-        <div class="form-group mb-3">
-            <label for="rating">Rating (1–5)</label>
-            <input type="number" class="form-control" id="rating" name="rating" min="1" max="5" required>
+        <div class="mb-3">
+            <label class="form-label"><strong>Rating:</strong></label>
+            <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="5" required/>
+                <label for="star5"><i class="bi bi-star-fill"></i></label>
+
+                <input type="radio" id="star4" name="rating" value="4"/>
+                <label for="star4"><i class="bi bi-star-fill"></i></label>
+
+                <input type="radio" id="star3" name="rating" value="3"/>
+                <label for="star3"><i class="bi bi-star-fill"></i></label>
+
+                <input type="radio" id="star2" name="rating" value="2"/>
+                <label for="star2"><i class="bi bi-star-fill"></i></label>
+
+                <input type="radio" id="star1" name="rating" value="1"/>
+                <label for="star1"><i class="bi bi-star-fill"></i></label>
+            </div>
         </div>
 
         <div class="form-group mb-3">
@@ -50,5 +65,8 @@
         </div>
     </form>
 </div>
+
+<a href="/appointments/service-history-page" class="btn btn-outline-dark mt-2"> Back </a>
+
 </body>
 </html>

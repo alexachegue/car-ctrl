@@ -26,31 +26,33 @@
         <a class="nav-link text-white" href="/users/profile-page"><i class="bi bi-person"></i> Profile</a>
     </nav>
 </div>
-<div class="container mt-5">
+
+<div class="container mt-5" style="margin-left: 260px;">
     <h1 class="mb-4">Service History</h1>
 
     <#if appointments?size == 0>
-    <p>No appointments found.</p>
+        <p>No appointments found.</p>
     <#else>
-    <div class="row">
-        <#list appointments as a>
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-sm h-100">
-                <div class="card-body">
-                    <h5 class="card-title">${a.service.name}</h5>
-                    <p><strong>Date:</strong> ${a.appointmentDate?string("yyyy-MM-dd HH:mm")}</p>
-                    <p><strong>Status:</strong> ${a.status}</p>
-                    <p><strong>Car:</strong> ${a.car.make} ${a.car.model} (${a.car.year})</p>
-                    <p><strong>Description:</strong> ${a.description!""}</p>
+        <div class="row">
+            <#list appointments as a>
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">${a.service.name}</h5>
+                            <p><strong>Date:</strong> ${a.appointmentDate?string("yyyy-MM-dd HH:mm")}</p>
+                            <p><strong>Status:</strong> ${a.status}</p>
+                            <p><strong>Car:</strong> ${a.car.make} ${a.car.model} (${a.car.year})</p>
+                            <p><strong>Description:</strong> ${a.description!""}</p>
 
-                    <#if a.appointmentDate?long < now?long>
-                    <a href="/reviews/new?appointmentId=${a.appointmentId}" class="btn btn-sm btn-primary mt-2">Leave Review</a>
-                    </#if>
+                            <#if a.appointmentDate?long < .now?long>
+                            <a href="/reviews/new?appointmentId=${a.appointmentId}" class="btn btn-sm btn-outline-secondary me-2">Leave Review</a>
+                            <a href="/reviews/view/appointment/${a.appointmentId}" class="btn btn-sm btn-outline-primary">View Review</a>
+                            </#if>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </#list>
         </div>
-        </#list>
-    </div>
     </#if>
 </div>
 </body>

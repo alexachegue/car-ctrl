@@ -1,4 +1,6 @@
 package com.csc340group6.carctrl.reviews;
+import com.csc340group6.carctrl.provider.Provider;
+import com.csc340group6.carctrl.provider.ProviderRepository;
 import com.csc340group6.carctrl.subscription.Appointment;
 import com.csc340group6.carctrl.subscription.AppointmentRepository;
 import com.csc340group6.carctrl.user.User;
@@ -21,6 +23,9 @@ public class ReviewController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ProviderRepository providerRepository;
 
     @Autowired
     private AppointmentRepository appointmentRepository;
@@ -53,9 +58,15 @@ public class ReviewController {
         review.setUser(new User());
         review.getUser().setUserId(userId);
 
+        Appointment fullAppointment = appointmentRepository.findById(appointmentId)
+                .orElseThrow(() -> new RuntimeException("Appointment not found"));
+        review.setAppointment(fullAppointment);
+        review.setProvider(fullAppointment.getProvider());
+
         model.addAttribute("review", review);
         return "review-form";
     }
+
 
     @PostMapping("/submit")
     public String submitReview(@ModelAttribute Review review, HttpSession session) {
@@ -71,12 +82,41 @@ public class ReviewController {
         Appointment appointment = appointmentRepository.findById(appointmentId)
                 .orElseThrow(() -> new RuntimeException("Appointment not found"));
 
+        int providerId = review.getProvider().getProviderId();
+
+        Provider provider = providerRepository.findById(providerId)
+                .orElseThrow(() -> new RuntimeException("Provider not found"));
+
         review.setUser(user);
         review.setAppointment(appointment);
+        review.setProvider(provider);
 
         reviewService.createReview(review);
         return "redirect:/appointments/service-history-page";
     }
 
+    @GetMapping("/view/appointment/{appointmentId}")
+    public String viewReviewByAppointment(@PathVariable int appointmentId, Model model) {
+        Review review = reviewService.getReviewByAppointmentId(appointmentId)
+                .orElseThrow(() -> new RuntimeException("No review found for appointment: " + appointmentId));
+        model.addAttribute("review", review);
+        return "review-details";
+    }
+
+    @GetMapping("/respond/{reviewId}")
+    public String showProviderResponseForm(@PathVariable int reviewId, Model model) {
+        Review review = reviewService.getReviewById(reviewId);
+        model.addAttribute("review", review);
+        return "provider-review-manage";
+    }
+
+    @PostMapping("/respond/{reviewId}")
+    public String respondToReview(@PathVariable int reviewId,
+                                  @RequestParam String providerResponse) {
+        Review review = reviewService.getReviewById(reviewId);
+        review.setProviderResponse(providerResponse);
+        reviewService.saveReview(review);
+        return "home-index";
+    }
 
 }

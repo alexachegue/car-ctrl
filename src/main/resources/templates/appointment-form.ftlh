@@ -68,6 +68,7 @@
             </form>
         </div>
     </div>
-</div
+    <a href="/providers/by-service/${service.serviceId}" class="btn btn-primary">Back to Providers</a>
+</div>
 </body>
-</html>
+</html> 

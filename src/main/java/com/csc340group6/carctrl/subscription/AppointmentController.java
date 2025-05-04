@@ -1,24 +1,27 @@
 package com.csc340group6.carctrl.subscription;
 
-import com.csc340group6.carctrl.car.Car;
+import com.csc340group6.carctrl.alert.Alert;
 import com.csc340group6.carctrl.car.CarRepository;
 import com.csc340group6.carctrl.provider.Provider;
 import com.csc340group6.carctrl.provider.ProviderRepository;
+import com.csc340group6.carctrl.reviews.Review;
+import com.csc340group6.carctrl.reviews.ReviewService;
 import com.csc340group6.carctrl.services.CarService;
+import com.csc340group6.carctrl.alert.AlertService;
 import com.csc340group6.carctrl.services.CarServiceRepository;
-import com.csc340group6.carctrl.services.CarServiceService;
 import com.csc340group6.carctrl.user.User;
 import com.csc340group6.carctrl.user.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/appointments")
@@ -35,15 +38,15 @@ public class AppointmentController {
 
     @Autowired
     private UserRepository userRepository;
-    
+
+    @Autowired
+    private ReviewService reviewService;
+
     @Autowired
     private ProviderRepository providerRepository;
 
     @Autowired
-    private CarServiceRepository carServiceRepository;
-
-    @Autowired
-    private CarServiceService carServiceService;
+    private AlertService alertService;
 
     @GetMapping("/form")
     public String showAppointmentForm(@RequestParam("providerId") int providerId,
@@ -66,12 +69,11 @@ public class AppointmentController {
 
         model.addAttribute("appointment", appointment);
         model.addAttribute("cars", carRepository.findCarsByUser(userId));
-        model.addAttribute("services", serviceRepository.findAll());
+        model.addAttribute("service", service);
         model.addAttribute("providers", providerRepository.findAll());
 
         return "appointment-form";
     }
-
 
     @PostMapping("/create")
     public String createAppointmentFromForm(HttpSession session,
@@ -81,6 +83,7 @@ public class AppointmentController {
                                             @RequestParam String appointmentDate,
                                             @RequestParam(required = false) String description) {
         int userId = (int) session.getAttribute("userId");
+        Provider provider = providerRepository.findById(providerId).orElseThrow();
 
         Appointment appointment = new Appointment();
         appointment.setUser(userRepository.findById(userId).orElseThrow());
@@ -92,6 +95,7 @@ public class AppointmentController {
         appointment.setStatus(Appointment.Status.Pending);
 
         appointmentService.createAppointment(appointment);
+        alertService.createAlertForUser(provider.getProviderId(), userId, appointment.getAppointmentId(), Alert.AlertType.primary, "Appointment submitted and is pending confirmation.");
         return "redirect:/appointments/confirmation/" + appointment.getAppointmentId();
     }
 
@@ -114,8 +118,16 @@ public class AppointmentController {
         int userId = (int) userIdObj;
         List<Appointment> appointments = appointmentService.getAppointmentsByUserId(userId);
 
+        List<Review> reviews = reviewService.getReviewsByUserId(userId);
+
+        Map<String, Review> reviewMap = new HashMap<>();
+        for (Review r : reviews) {
+            reviewMap.put(String.valueOf(r.getAppointment().getAppointmentId()), r);
+        }
+        model.addAttribute("reviewMap", reviewMap);
         model.addAttribute("appointments", appointments);
         model.addAttribute("now", new Date());
+
         return "service-history";
     }
 

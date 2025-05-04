@@ -229,3 +229,22 @@ p, li, span {
     max-width: 700px;
     margin: auto;
 }
+
+ .star-rating {
+        direction: rtl;
+        display: inline-flex;
+        gap: 0.25rem;
+    }
+    .star-rating input {
+        display: none;
+    }
+    .star-rating label {
+        font-size: 1.75rem;
+        color: #ccc;
+        cursor: pointer;
+    }
+    .star-rating input:checked ~ label,
+    .star-rating label:hover,
+    .star-rating label:hover ~ label {
+        color: gold;
+    }

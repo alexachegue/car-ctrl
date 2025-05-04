@@ -21,6 +21,7 @@ public class Appointment {
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name = "appointment_id", nullable = false)
     private int appointmentId;
 
     @ManyToOne
@@ -41,6 +42,7 @@ public class Appointment {
 
     private String description;
 
+    @JoinColumn(name = "appointment_date", nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date appointmentDate;
 
@@ -63,14 +65,18 @@ public class Appointment {
         this.appointmentDate = appointmentDate;
     }
 
-    public int getAppointmentId() { return appointmentId; }
+    public int getAppointmentId(){
+        return appointmentId; }
 
     public void setAppointmentId(int appointmentId){
         this.appointmentId = appointmentId;
     }
-    public User getUser() { return user; }
 
-    public void setUser(User user) { this.user = user; }
+    public User getUser() {
+        return user; }
+
+    public void setUser(User user) {
+        this.user = user; }
 
     public int getServiceId(){
         return service.getServiceId();
@@ -80,7 +86,7 @@ public class Appointment {
         this.service = service;
     }
 
-    public Provider getProvider() {
+    public Provider getProvider(){
         return provider;
     }
 
@@ -88,31 +94,43 @@ public class Appointment {
         return provider.getProvidername();
     }
 
-    public void setProvider(Provider provider) {
+    public void setProvider(Provider provider){
         this.provider = provider;
     }
 
-    public CarService getService() { return service; }
+    public CarService getService(){
+        return service; }
 
-    public void setService(CarService service) { this.service = service; }
+    public void setService(CarService service){
+        this.service = service; }
 
-    public Car getCar() { return car; }
+    public Car getCar() {
+        return car; }
 
-    public void setCar(Car car) { this.car = car; }
+    public void setCar(Car car){
+        this.car = car; }
 
-    public String getDescription() { return description; }
+    public String getDescription(){
+        return description; }
 
-    public void setDescription(String description) { this.description = description; }
+    public void setDescription(String description){
+        this.description = description; }
 
-    public Date getAppointmentDate() { return appointmentDate; }
+    public Date getAppointmentDate(){
+        return appointmentDate; }
 
-    public void setAppointmentDate(Date appointmentDate) { this.appointmentDate = appointmentDate; }
+    public void setAppointmentDate(Date appointmentDate) {
+        this.appointmentDate = appointmentDate; }
 
-    public Status getStatus() { return status; }
+    public Status getStatus(){
+        return status; }
 
-    public void setStatus(Status status) { this.status = status; }
+    public void setStatus(Status status){
+        this.status = status; }
 
-    public Timestamp getCreatedAt() { return createdAt; }
+    public Timestamp getCreatedAt(){
+        return createdAt; }
 
-    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    public void setCreatedAt(Timestamp createdAt){
+        this.createdAt = createdAt; }
 }

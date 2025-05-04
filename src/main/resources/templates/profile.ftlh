@@ -28,6 +28,7 @@
     </nav>
 </div>
 <main class="container mt-4 main-content">
+    <h1>PROFILE</h1>
     <div class="row">
     <div class="card shadow rounded-4">
         <div class="card-header text-white text-center rounded-top-4">
@@ -57,7 +58,7 @@
             </#if>
         </div>
 
-    <a href="/cars/register-car" class="btn btn-primary w-100 mt-3">Register Another Car</a>
+    <a href="/cars/register-car" class="btn btn-primary w-100 mt-3">Register A Car</a>
 
     <form action="/users/logout" method="post" class="mt-4">
         <button class="btn btn-dark mt-2">Logout</button>

@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
-
 </head>
+
 <body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
@@ -30,8 +30,8 @@
     </nav>
 </div>
 
-<div class="container mt-4">
-    <h1 class="mb-4">Providers Offering: ${service.name}</h1>
+<div class="main-content">
+    <h1>Providers Offering: ${service.name}</h1>
     <div class="row">
         <#list providers as provider>
         <div class="col-md-4 mb-4">
@@ -45,6 +45,9 @@
                         <strong>Hours:</strong> ${provider.operatingHours}<br>
                         <strong>Bio:</strong> ${provider.bio}
                     </p>
+                    <p class="card-text">
+                        <small class="text-muted">Category: ${service.serviceCategory}</small>
+                    </p>
                     <a href="/appointments/form?providerId=${provider.providerId}&serviceId=${serviceId}"
                        class="btn btn-primary w-100 mt-2">Book Appointment</a>
                 </div>
@@ -52,6 +55,7 @@
         </div>
         </#list>
     </div>
+<a href="/services/service-category/${category}" class="btn btn-outline-dark mt-2"> Back </a>
 </div>
 </body>
 </html>

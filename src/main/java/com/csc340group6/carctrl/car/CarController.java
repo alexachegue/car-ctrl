@@ -26,70 +26,7 @@ public class CarController {
     public UserService userService;
 
     /**
-     *
-     *
-    /**
-     * http://localhost:8081/cars/all
-     *
-    @GetMapping("/all")
-    public Object getAllCars(){
-        return new ResponseEntity<>(carService.getAllCars(), HttpStatus.OK);
-    }
-
-    /**
-     * http://localhost:8081/cars/{carId}
-     *
-    @GetMapping("/{carId}")
-    public Object getCarById(@PathVariable int carId){
-        return new ResponseEntity<>(carService.getCarById(carId), HttpStatus.OK);
-    }
-
-    /**
-     * http://localhost:8081/cars/user/{userId}
-     *
-    @GetMapping("/user/{userId}")
-    public Object getCarsByUserId(@PathVariable int userId){
-        return ResponseEntity.ok(carService.getCarsByUser(userId));
-    }
-
-    /**
-     * http://localhost:8081/cars/add-car
-     *
-    @PostMapping("/add-car")
-    public Object addNewCar(@RequestBody Car car) {
-        System.out.println("Incoming Car JSON:");
-        System.out.println("Make: " + car.getMake());
-        System.out.println("User ID: " + (car.getUser() != null ? car.getUser().getUserId() : "null"));
-
-        Car savedCar = carService.addNewCar(car);
-        return new ResponseEntity<>(savedCar, HttpStatus.CREATED);
-    }
-
-    /**
-     * http://localhost:8081/cars/update/{carId}
-     *
-    @PutMapping("/update/{carId}")
-    public Object updateCar(@PathVariable int carId, @RequestBody Car car) {
-        Car existingCar = carService.getCarById(carId);
-        if (existingCar == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Car not found");
-        }
-
-        existingCar.setMake(car.getMake());
-        existingCar.setModel(car.getModel());
-        existingCar.setYear(car.getYear());
-        existingCar.setColor(car.getColor());
-        carService.addNewCar(existingCar);
-
-        return ResponseEntity.ok(existingCar);
-    }
-
-    **
-
-
-    /**
      * Show the car registration form
-     * GET /car/register
      */
     @GetMapping("/register-car")
     public String showCarForm(Model model) {
@@ -99,7 +36,6 @@ public class CarController {
 
     /**
      * Handle form submission and save car
-     * POST /car/register
      */
     @PostMapping("/register-car")
     public String registerCar(@ModelAttribute Car car, HttpSession session) {
@@ -113,6 +49,4 @@ public class CarController {
 
         return "redirect:/users/profile-page";
     }
-
-
 }

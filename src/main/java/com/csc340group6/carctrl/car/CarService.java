@@ -30,11 +30,8 @@ public class CarService {
         return carRepository.save(car);
     }
 
-
     public List<Car> findCarsByUser(int userId) {
         return carRepository.findCarsByUser(userId);
     }
-
-
 
 }

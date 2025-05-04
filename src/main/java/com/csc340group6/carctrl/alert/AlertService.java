@@ -1,4 +1,4 @@
-package com.csc340group6.carctrl.alerts;
+package com.csc340group6.carctrl.alert;
 
 import com.csc340group6.carctrl.alert.Alert;
 import com.csc340group6.carctrl.alert.AlertRepository;
@@ -11,6 +11,8 @@ import com.csc340group6.carctrl.user.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
@@ -32,23 +34,16 @@ public class AlertService {
     /**
      * Create a new alert.
      */
-    public Alert createAlert(int providerId, int userId, int appointmentId, Alert.AlertType alertType, String message) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
-        Appointment appointment = appointmentRepository.findById(appointmentId)
-                .orElseThrow(() -> new RuntimeException("Appointment not found"));
-        Provider provider = providerRepository.findById(providerId)
-                .orElseThrow(() -> new RuntimeException("Provider not found"));
-
+    public void createAlertForUser(int providerId, int userId, int appointmentId, Alert.AlertType type, String message) {
         Alert alert = new Alert();
-        alert.setUser(user);
-        alert.setAppointment(appointment);
-        alert.setAlertType(alertType);
+        alert.setProvider(providerRepository.findById(providerId).orElse(null));
+        alert.setUser(userRepository.findById(userId).orElseThrow());
+        alert.setAppointment(appointmentRepository.findById(appointmentId).orElseThrow());
+        alert.setAlertType(type);
         alert.setMessage(message);
-        alert.setDismissible(true);
-        alert.setProvider(provider);
+        alert.setCreatedAt(new Timestamp(System.currentTimeMillis()));
 
-        return alertRepository.save(alert);
+        alertRepository.save(alert);
     }
 
     public List<Alert> getAlertsByProviderId(int providerId) {
