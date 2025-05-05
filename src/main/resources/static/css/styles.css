@@ -1,0 +1,238 @@
+body, html {
+ margin: 0;
+ padding: 0;
+ font-family: 'Manrope', sans-serif;
+ color: #ffffff;
+ background-color: #0a0a0a;
+}
+/* Sidebar */
+.sidebar {
+background-color: #111;
+width: 250px;
+float: left;
+padding: 20px 0;
+box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+position: fixed;
+height: 100%;
+overflow-y: auto;
+}
+.sidebar .nav-link {
+display: flex;
+align-items: center;
+color: #ffffff;
+font-weight: 600;
+padding: 15px 20px;
+text-decoration: none;
+border-radius: 5px;
+transition: all 0.3s ease-in-out;
+}
+.sidebar .nav-link i {
+margin-right: 10px;
+}
+.sidebar .nav-link:hover,
+.sidebar .nav-link:focus,
+.sidebar .nav-link.active {
+background-color: #222;
+color: #C91B00;
+transform: scale(1.05);
+box-shadow: 0px 4px 10px rgba(201, 27, 0, 0.4);
+}
+/* Main Content */
+.main-content {
+margin-left: 250px;
+padding: 20px;
+min-height: 100vh; /*added this*/
+flex: 1;
+}
+/* Navbar */
+.navbar {
+display: flex;
+justify-content: flex-end;
+padding: 10px 20px;
+background-color: #111;
+}
+.social-links a {
+color: white;
+margin-left: 15px;
+font-size: 20px;
+text-decoration: none;
+}
+.social-links a:hover {
+ color: #C91B00; /* Change to red on hover */
+}
+
+
+.main-content {
+ margin-left: 250px;
+ flex: 1;
+}
+
+
+/* Container */
+.container {
+ /*position: relative;
+ text-align: center;
+ padding-left: 0 !important;
+ padding-right: 0 !important;
+ margin-left: 0 !important;
+ margin-right: 0 !important*/
+ padding: 20px;
+     margin-left: auto;
+     margin-right: auto;
+}
+
+
+/* Background Image */
+.page-header {
+ height: 380px;
+ background: url('https://www.gtspiritmedia.com/gtspirit/gallery/lamborghini-gallardo-superleggera/lamborghini-gallardo-superleggera-13.jpg') no-repeat center center/cover;
+ position: relative;
+}
+
+
+.page-header:before {
+ content: "";
+ position: absolute;
+ top: 0;
+ left: 0;
+ width: 100%;
+ height: 100%;
+ background: rgba(0, 0, 0, 0.5);
+ z-index: 2;
+}
+
+
+/* Profile Card */
+.profile-card {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+ text-align: center;
+ position: relative;
+ z-index: 3;
+ margin-top: -80px;
+}
+
+
+.avatar img {
+ width: 120px;
+ height: 120px;
+ border-radius: 50%;
+ border: 4px solid #ffffff;
+ box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+ position: relative;
+ z-index: 4; /* Ensure circle is above everything else */
+}
+
+
+.title {
+ margin-top: 20px;
+ font-size: 24px;
+ color: #ffffff;
+}
+
+
+h6 {
+ font-size: 16px;
+ color: #C91B00;
+ font-weight: 700;
+}
+
+
+p {
+ font-size: 14px;
+ color: #999;
+}
+
+
+/* General Card Styling */
+.card {
+ background: #111; /* Dark card background */
+ border: 1px solid #222; /* Subtle border */
+ border-radius: 10px; /* Rounded corners */
+ box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+ transition: transform 0.3s ease, box-shadow 0.3s ease; /* Hover effect animation */
+ margin-bottom: 20px;
+}
+
+
+.card:hover {
+ transform: scale(1.03); /* Slight zoom-in on hover */
+ box-shadow: 0px 4px 10px rgba(201, 27, 0, 0.4); /* Lighter red shadow */
+}
+
+
+/* Card Header Styling */
+.card-header {
+ background: #C91B00; /* Red background for headers */
+ color: white; /* White text for header */
+ font-weight: bold;
+ text-align: center; /* Center align header text */
+ padding: 10px;
+ border-bottom: 1px solid #222; /* Add subtle border below header */
+}
+/* Card Title Styling */
+.card-title {
+ color: #ffffff; /* White text for the title */
+ font-size: 1.5rem; /* Adjust font size as needed */
+ font-weight: 600; /* Bold title */
+ text-align: center; /* Center align the title */
+ margin-bottom: 15px; /* Add space below the title */
+}
+
+
+/* Card Body Styling */
+.card p {
+ color: #ffffff; /* White text color for card body */
+ font-size: 1rem; /* Standard body text size */
+ text-align: center; /* Center align text */
+ line-height: 1.6; /* Improve readability */
+}
+
+
+/* Button Styling */
+.btn-primary {
+ background-color: #C91B00; /* Red background */
+ color: white; /* White text */
+ font-family: 'Manrope', sans-serif; /* Match overall font */
+ font-weight: 600; /* Bold font */
+ border: none; /* Remove border */
+ padding: 10px 20px; /* Add padding for size */
+ border-radius: 5px; /* Rounded corners */
+ transition: background 0.3s ease-in-out, transform 0.2s ease-in-out; /* Smooth hover effect */
+ text-decoration: none; /* Remove underline for links */
+ display: inline-block;
+}
+
+
+.btn-primary:hover {
+ background-color: rgba(201, 27, 0, 0.8);
+ transform: scale(1.05); /* Slight zoom effect on hover */
+ color: white; /* Dark text color on hover */
+}
+
+
+/* Image Styling */
+.card img {
+ max-width: 100%; /* Ensure the image fits inside the card */
+ height: auto; /* Maintain aspect ratio */
+ border-radius: 10px; /* Match the rounded corners of the card */
+ transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out; /* Hover effects */
+}
+
+.card img:hover {
+ transform: scale(1.05); /* Slight zoom on hover */
+ box-shadow: 0px 4px 10px rgba(201, 27, 0, 0.4);
+}
+
+.table-dark th {
+    background-color: #222;
+    color: #C91B00;
+}
+
+.table-dark td {
+    background-color: #111;
+    color: #fff;
+    border-color: #333;
+}
