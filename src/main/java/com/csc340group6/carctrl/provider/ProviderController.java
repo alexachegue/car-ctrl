@@ -99,7 +99,7 @@ public class ProviderController {
     @GetMapping("/login-page")
     public String showLoginPage(Model model) {
         model.addAttribute("provider", new Provider());
-        return "login";
+        return "provider/login";
     }
 
     @PostMapping("/login-page")
@@ -110,7 +110,7 @@ public class ProviderController {
 
         if (foundProvider == null || !foundProvider.getPassword().equals(provider.getPassword())) {
             model.addAttribute("error", "Invalid credentials");
-            return "login";
+            return "provider/login";
         }
         return "redirect:/providers/home";
     }
