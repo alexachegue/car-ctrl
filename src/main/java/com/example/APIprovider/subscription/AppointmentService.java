@@ -1,5 +1,7 @@
 package com.example.APIprovider.subscription;
 
+import com.example.APIprovider.provider.Provider;
+import com.example.APIprovider.provider.ProviderRepository;
 import com.example.APIprovider.services.CarService;
 import com.example.APIprovider.car.Car;
 import com.example.APIprovider.car.CarRepository;
@@ -22,6 +24,9 @@ public class AppointmentService {
     private UserRepository userRepository;
 
     @Autowired
+    private ProviderRepository providerRepository;
+
+    @Autowired
     private CarRepository carRepository;
 
     @Autowired
@@ -33,24 +38,20 @@ public class AppointmentService {
 
     public List<Appointment> getAppointmentsByUserId(int userId) {
         return appointmentRepository.findAppointmentByUser_UserId(userId);
-//        return appointmentRepository.findByUser_UserId(userId);
+    }
+
+    public List<Appointment> getAppointmentsByProviderId(int providerId) {
+        return appointmentRepository.getAppointmentsByProvider(providerId);
     }
 
     public Appointment getAppointmentById(int id) {
         return appointmentRepository.findById(id).orElse(null);
     }
 
-//    public List<Appointment> getAppointmentsByProviderId(int providerId) {
-//        return appointmentRepository.getAppointmentsByProvider(providerId);
-//    }
-    public List<Appointment> getAppointmentsByProviderId(int providerId) {
-        return appointmentRepository.getAppointmentsByProvider(providerId);
-}
+    public void saveAppointment(Appointment appointment) {
+        appointmentRepository.save(appointment);
+    }
 
-//
-//    public List<Appointment> getAppointmentsByProviderAndStatus(int providerId, String status) {
-//        return appointmentRepository.getAppointmentsByProviderAndStatus(providerId, status);
-//    }
 
     public Appointment createAppointment(Appointment appointment) {
         User user = userRepository.findById(appointment.getUser().getUserId())
@@ -59,10 +60,13 @@ public class AppointmentService {
                 .orElseThrow(() -> new RuntimeException("Car not found"));
         CarService service = serviceRepository.findById(appointment.getService().getServiceId())
                 .orElseThrow(() -> new RuntimeException("Service not found"));
+        Provider provider = providerRepository.findById(appointment.getProvider().getProviderId())
+                .orElseThrow(() -> new RuntimeException("Provider not found"));
 
         appointment.setUser(user);
         appointment.setCar(car);
         appointment.setService(service);
+        appointment.setProvider(provider);
 
         return appointmentRepository.save(appointment);
     }
@@ -77,15 +81,6 @@ public class AppointmentService {
         }
         return null;
     }
-
-//    public Appointment updateAppointmentStatus(int id, String status) {
-//        Appointment appointment = getAppointmentById(id);
-//        if (appointment != null) {
-//            appointment.setStatus(status);
-//            return appointmentRepository.save(appointment);
-//        }
-//        return null;
-//    }
 
     public void deleteAppointment(int id) {
         appointmentRepository.deleteById(id);

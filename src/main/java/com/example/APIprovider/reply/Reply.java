@@ -14,8 +14,8 @@ public class Reply {
 
     private String message;
 
-    @OneToOne//(cascade = CascadeType.ALL)
-    @JoinColumn(name = "review_id", referencedColumnName = "reviewId", nullable = false, unique = true)
+    @OneToOne
+    @JoinColumn(name = "review_id")
     private Review review;
 
     public Reply() {}

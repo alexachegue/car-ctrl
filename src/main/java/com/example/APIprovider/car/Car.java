@@ -1,9 +1,11 @@
 package com.example.APIprovider.car;
 
-//import com.csc340group6.carctrl.user.User;
-
 import com.example.APIprovider.user.User;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import java.util.Date;
 
 @Entity
 @Table(name = "car")
@@ -21,6 +23,7 @@ public class Car {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
+    @JsonBackReference
     private User user;
 
     public Car(){}
@@ -80,4 +83,5 @@ public class Car {
     public void setColor(String color){
         this.color = color;
     }
+
 }

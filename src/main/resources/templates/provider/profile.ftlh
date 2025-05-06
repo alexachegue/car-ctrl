@@ -13,12 +13,13 @@
 <div class="container-fluid">
     <!-- Sidebar -->
     <nav class="sidebar">
-        <a class="nav-link" href="/providers/home?providerId=${providerId}"><i class="bi bi-house-door"></i> Home</a>
-        <a class="nav-link active" href="/providers/profile/${providerId}"><i class="bi bi-person"></i> Profile</a>
-        <a class="nav-link" href="/appointments?providerId=${providerId}"><i class="bi bi-calendar-check"></i> Appointments</a>
-        <a class="nav-link" href="/service/services/${providerId}"><i class="bi bi-tools"></i> Services</a>
-        <a class="nav-link" href="/alerts?providerId=${providerId}"><i class="bi bi-bell"></i> Alerts</a>
-        <a class="nav-link" href="/reviews/manage?providerId=${providerId}"><i class="bi bi-chat-left-text"></i> Reviews</a>
+        <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4" style="max-width: 100%;">
+        <a class="nav-link" href="/providers/home"><i class="bi bi-house-door"></i> Home</a>
+        <a class="nav-link active" href="/providers/profile"><i class="bi bi-person"></i> Profile</a>
+        <a class="nav-link" href="/appointments"><i class="bi bi-calendar-check"></i> Appointments</a>
+        <a class="nav-link" href="/service/services"><i class="bi bi-tools"></i> Services</a>
+        <a class="nav-link" href="/alerts"><i class="bi bi-bell"></i> Alerts</a>
+        <a class="nav-link" href="/reviews/manage"><i class="bi bi-chat-left-text"></i> Reviews</a>
     </nav>
 
     <!-- Main Content -->
@@ -89,7 +90,7 @@
             <i class="bi bi-plus-circle" style="font-size: 2rem; color: #C91B00;"></i>
             <h5 class="card-title mt-3">Manage Your Services</h5>
             <p class="card-text">Add or remove services from your profile.</p>
-            <a href="/service/services/${provider.providerId}" class="btn btn-primary">Manage Services</a>
+            <a href="/service/services" class="btn btn-primary">Manage Services</a>
         </div>
     </div>
 </div>

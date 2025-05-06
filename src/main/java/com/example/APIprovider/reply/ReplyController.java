@@ -11,7 +11,6 @@ import com.example.APIprovider.reviews.ReviewService;
 import java.util.List;
 import java.util.Optional;
 
-//@RestController
 @Controller
 @RequestMapping("/replies")
 public class ReplyController {
@@ -55,22 +54,6 @@ public class ReplyController {
      }
 
      **/
-
-//    @PostMapping("/create")
-//    public ResponseEntity<Reply> createReply(@ModelAttribute ReplyRequest request) {
-//        Optional<Review> review = reviewRepository.findById(request.getReviewId());
-//
-//        if (review.isEmpty()) {
-//            return ResponseEntity.badRequest().build();
-//        }
-//
-//        if (review.get().getReply() != null) {
-//            return ResponseEntity.status(409).body(null); // Conflict: already replied
-//        }
-//
-//        Reply reply = new Reply(request.getMessage(), review.get());
-//        return ResponseEntity.ok(replyService.saveReply(reply));
-//    }
 
     @PostMapping("/create")
     public String createOrUpdateReply(

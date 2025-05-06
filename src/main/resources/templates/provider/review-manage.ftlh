@@ -11,12 +11,13 @@
     <body>
     <div class="container-fluid">
         <nav class="sidebar">
-            <a class="nav-link" href="/providers/home?providerId=${providerId}"><i class="bi bi-house-door"></i> Home</a>
-            <a class="nav-link" href="/providers/profile/${providerId}"><i class="bi bi-person"></i> Profile</a>
-            <a class="nav-link" href="/appointments?providerId=${providerId}"><i class="bi bi-calendar-check"></i> Appointments</a>
-            <a class="nav-link" href="/service/services/${providerId}"><i class="bi bi-tools"></i> Services</a>
-            <a class="nav-link" href="/alerts?providerId=${providerId}"><i class="bi bi-bell"></i> Alerts</a>
-            <a class="nav-link active" href="/reviews/manage?providerId=${providerId}"><i class="bi bi-chat-left-text"></i> Reviews</a>
+            <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4" style="max-width: 100%;">
+            <a class="nav-link" href="/providers/home"><i class="bi bi-house-door"></i> Home</a>
+            <a class="nav-link" href="/providers/profile"><i class="bi bi-person"></i> Profile</a>
+            <a class="nav-link" href="/appointments"><i class="bi bi-calendar-check"></i> Appointments</a>
+            <a class="nav-link" href="/service/services"><i class="bi bi-tools"></i> Services</a>
+            <a class="nav-link" href="/alerts"><i class="bi bi-bell"></i> Alerts</a>
+            <a class="nav-link active" href="/reviews/manage"><i class="bi bi-chat-left-text"></i> Reviews</a>
         </nav>
 
         <div class="main-content">
@@ -26,8 +27,12 @@
                 <div class="card-body">
                     <p><strong>Total Reviews:</strong> ${totalReviews}</p>
                     <p><strong>Average Rating:</strong> ${averageRating}/5</p>
+                    <#if totalReviews?number gt 0>
                     <p><strong>Replied Reviews:</strong> ${repliedCount} (${(repliedCount * 100 / totalReviews)?int}%)</p>
-                </div>
+                    <#else>
+                    <p><strong>Replied Reviews:</strong> 0 (0%)</p>
+                </#if>
+            </div>
             </div>
 
             <div class="reviews-list">

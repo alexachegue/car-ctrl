@@ -25,18 +25,15 @@ public class CarService {
         return carRepository.findById(carId).orElse(null);
     }
 
-    public Car addNewCar(Car car){
+    public Car addNewCar(Car car) {
         if (car.getUser() == null) {
-            throw new RuntimeException("User ID must be provided to assign car.");
+            throw new RuntimeException("User must be associated with the car.");
         }
-        User user = userRepository.findById(car.getUser().getUserId()).orElseThrow(() -> new RuntimeException("User not found with ID: " + car.getUser().getUserId()));
-
-        car.setUser(user);
-        carRepository.save(car);
-        return car;
+        return carRepository.save(car);
     }
 
-    public List<Car> getCarsByUser(int userId){
-        return carRepository.findCarByUser(userId);
+    public List<Car> findCarsByUser(int userId) {
+        return carRepository.findCarsByUser(userId);
     }
+
 }

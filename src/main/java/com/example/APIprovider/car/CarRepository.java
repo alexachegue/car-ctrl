@@ -10,5 +10,5 @@ import java.util.List;
 public interface CarRepository extends JpaRepository<Car, Integer> {
 
     @Query(value = "SELECT * FROM car c WHERE c.user_id = :userId", nativeQuery = true)
-    List<Car> findCarByUser(@Param("userId") int userId);
+    List<Car> findCarsByUser(@Param("userId") int userId);
 }

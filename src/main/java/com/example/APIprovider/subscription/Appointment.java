@@ -1,6 +1,7 @@
 package com.example.APIprovider.subscription;
 
 import com.example.APIprovider.car.Car;
+import com.example.APIprovider.provider.Provider;
 import com.example.APIprovider.services.CarService;
 import com.example.APIprovider.user.User;
 import jakarta.persistence.*;
@@ -13,18 +14,25 @@ import java.util.Date;
 public class Appointment {
 
     public enum Status {
-        Scheduled,
-        Pending,
-        Cancelled
+        PENDING,
+        SCHEDULED,
+        COMPLETED,
+        CANCELLED
     }
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JoinColumn(name = "appointment_id", nullable = false)
     private int appointmentId;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private Provider provider;
 
     @ManyToOne
     @JoinColumn(name = "service_id", nullable = false)
@@ -36,6 +44,7 @@ public class Appointment {
 
     private String description;
 
+    @JoinColumn(name = "appointment_date", nullable = false)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date appointmentDate;
 
@@ -49,8 +58,9 @@ public class Appointment {
 
     public Appointment() {}
 
-    public Appointment(User user, CarService service, Car car, String description, Status status, Date appointmentDate) {
+    public Appointment(User user, Provider provider, CarService service, Car car, String description, Status status, Date appointmentDate){
         this.user = user;
+        this.provider = provider;
         this.service = service;
         this.car = car;
         this.description = description;
@@ -78,33 +88,72 @@ public class Appointment {
 //    public String getStatus() { return status; }
 //    public void setStatus(String status) { this.status = status; }
 
-    public int getAppointmentId() { return appointmentId; }
+    public int getAppointmentId(){
+        return appointmentId; }
 
-    public User getUser() { return user; }
+    public void setAppointmentId(int appointmentId){
+        this.appointmentId = appointmentId;
+    }
 
-    public void setUser(User user) { this.user = user; }
+    public User getUser() {
+        return user; }
 
-    public CarService getService() { return service; }
+    public void setUser(User user) {
+        this.user = user; }
 
-    public void setService(CarService service) { this.service = service; }
+    public int getServiceId(){
+        return service.getServiceId();
+    }
 
-    public Car getCar() { return car; }
+    public void setServiceId(CarService service){
+        this.service = service;
+    }
 
-    public void setCar(Car car) { this.car = car; }
+    public Provider getProvider(){
+        return provider;
+    }
 
-    public String getDescription() { return description; }
+    public String getProviderName() {
+        return provider.getProvidername();
+    }
 
-    public void setDescription(String description) { this.description = description; }
+    public void setProvider(Provider provider){
+        this.provider = provider;
+    }
 
-    public Date getAppointmentDate() { return appointmentDate; }
+    public CarService getService(){
+        return service; }
 
-    public void setAppointmentDate(Date appointmentDate) { this.appointmentDate = appointmentDate; }
+    public void setService(CarService service){
+        this.service = service; }
 
-    public Status getStatus() { return status; }
+    public Car getCar() {
+        return car; }
 
-    public void setStatus(Status status) { this.status = status; }
+    public void setCar(Car car){
+        this.car = car; }
 
-    public Timestamp getCreatedAt() { return createdAt; }
+    public String getDescription(){
+        return description; }
 
-    public void setCreatedAt(Timestamp createdAt) { this.createdAt = createdAt; }
+    public void setDescription(String description){
+        this.description = description; }
+
+    public Date getAppointmentDate(){
+        return appointmentDate; }
+
+    public void setAppointmentDate(Date appointmentDate) {
+        this.appointmentDate = appointmentDate; }
+
+    public Status getStatus(){
+        return status; }
+
+    public void setStatus(Status status){
+        this.status = status; }
+
+    public Timestamp getCreatedAt(){
+        return createdAt; }
+
+    public void setCreatedAt(Timestamp createdAt){
+        this.createdAt = createdAt; }
 }

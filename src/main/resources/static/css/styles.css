@@ -236,3 +236,18 @@ p {
     color: #fff;
     border-color: #333;
 }
+
+.nav-logo {
+    width: 120px;
+    max-width: 80%;
+    height: auto;
+    display: block;
+    margin: 10px auto 20px;
+    object-fit: contain;
+    border-radius: 6px;
+}
+
+.nav-logo:hover {
+    transform: scale(1.02);
+    transition: transform 0.2s ease-in-out;
+}
