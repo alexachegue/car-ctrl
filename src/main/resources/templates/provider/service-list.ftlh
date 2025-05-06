@@ -34,7 +34,7 @@
             <#list providerServices as service>
             <div class="col">
                 <div class="card h-100">
-                    <div class="card-body">
+                    <div class="card-body text-center">
                         <h5 class="card-title">${service.name}</h5>
                         <p class="card-text"><strong>Category:</strong> ${service.category}</p>
                         <p class="card-text">${service.description}</p>
@@ -58,7 +58,7 @@
     <#list unassignedServices as service>
     <div class="col">
         <div class="card h-100">
-            <div class="card-body">
+            <div class="card-body text-center">
                 <h5 class="card-title">${service.name}</h5>
                 <p class="card-text"><strong>Category:</strong> ${service.category}</p>
                 <p class="card-text">${service.description}</p>
