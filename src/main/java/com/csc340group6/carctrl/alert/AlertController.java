@@ -22,7 +22,7 @@ public class AlertController {
     /**
      *  CUSTOMER MVC
      */
-    @GetMapping
+    @GetMapping("/user")
     public String showAlerts(HttpSession session, Model model) {
         Object userIdObj = session.getAttribute("userId");
         if (userIdObj == null) return "redirect:/users/login-page";

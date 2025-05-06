@@ -15,7 +15,7 @@ public interface AlertRepository extends JpaRepository<Alert, Integer> {
     List<Alert> findByProvider_ProviderId(int providerId);
 
     // Get all alerts for a specific provider and alert type
-    List<Alert> findByProviderIdAndAlertType(int providerId, String alertType);
+    List<Alert> findByProviderProviderIdAndAlertType(int providerId, Alert.AlertType alertType);
 
     // Get all alerts for a specific appointment
     List<Alert> findByAppointment_AppointmentId(int appointmentId);

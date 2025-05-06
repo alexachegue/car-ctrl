@@ -77,14 +77,19 @@ public class AlertService {
         return alert;
     }
 
+    public void createAppointmentConfirmation(User user, Appointment appointment) {
+        Alert alert = new Alert(user, null, appointment, Alert.AlertType.success, "Appointment confirmed!");
+        alertRepository.save(alert);
+    }
+
     // Get all alerts for a specific provider
     public List<Alert> getAlertsByProviderId(int providerId) {
         return alertRepository.findByProvider_ProviderId(providerId);
     }
 
     // Get all alerts for a specific provider and alert type
-    public List<Alert> getAlertsByProviderIdAndAlertType(int providerId, String alertType) {
-        return alertRepository.findByProviderIdAndAlertType(providerId, alertType);
+    public List<Alert> getAlertsByProviderIdAndAlertType(int providerId, Alert.AlertType alertType) {
+        return alertRepository.findByProviderProviderIdAndAlertType(providerId, alertType);
     }
 
     // Get all alerts for a specific appointment
