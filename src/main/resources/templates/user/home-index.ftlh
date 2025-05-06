@@ -22,7 +22,7 @@
         <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4" style="max-width: 100%;">
         <a class="nav-link text-white" href="/users/home-page"><i class="bi bi-house-door"></i> Home</a>
         <a class="nav-link text-white" href="/services/explore"><i class="bi bi-search"></i> Explore</a>
-        <a class="nav-link text-white" href="/alerts"><i class="bi bi-bell"></i> Alerts</a>
+        <a class="nav-link text-white" href="/alerts/user"><i class="bi bi-bell"></i> Alerts</a>
         <a class="nav-link text-white" href="/appointments/service-history-page"><i class="bi bi-journal-check"></i>
             Service History</a>
         <a class="nav-link text-white" href="/users/profile-page"><i class="bi bi-person"></i> Profile</a>
@@ -57,7 +57,7 @@
             <div class="col-md-6">
                 <div class="card shadow-sm mb-3 text-center equal-height">
                     <div class="card-body">
-                        <i class="bi bi-car-front" style="font-size: 2rem; color: ##ad1a10;"></i>
+                        <i class="bi bi-car-front" style="font-size: 2rem; color: #9c160c;"></i>
                         <h5 class="card-title">Explore Services</h5>
                         <p class="card-text">Find the right service for your vehicle today.</p>
                         <a href="/services/explore" class="btn btn-primary">Explore</a>
@@ -80,7 +80,7 @@
                         <i class="bi bi-bell-fill" style="font-size: 2rem; color: #ffc107;"></i>
                         <h5 class="card-title">Alerts</h5>
                         <p class="card-text">Stay alert to upcoming services.</p>
-                        <a href="/alerts" class="btn btn-primary">View</a>
+                        <a href="/alerts/user" class="btn btn-primary">View</a>
                     </div>
                 </div>
             </div>

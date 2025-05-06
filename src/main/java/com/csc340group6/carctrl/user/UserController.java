@@ -26,67 +26,10 @@ public class UserController {
     @Autowired
     private CarService carService;
 
-
-    /**
-    /**
-     * Return a list of users (API use).
-     *
-    @GetMapping("/all")
-    @ResponseBody
-    public Object getAllUser(){
-        return new ResponseEntity<>(service.getAllUsers(), HttpStatus.OK);
-    }
-
-    /**
-     * Get user by ID (API use).
-     *
-    @GetMapping("/{userId}")
-    @ResponseBody
-    public Object getUser(@PathVariable int userId){
-        return new ResponseEntity<>(service.getUserById(userId), HttpStatus.OK);
-    }
-
-    /**
-     * Register new user via JSON (API use).
-     *
-    @PostMapping("/register")
-    @ResponseBody
-    public Object addNewUser(@RequestBody User user){
-        if (user.getCars() != null) {
-            user.getCars().forEach(car -> car.setUser(user));
-        }
-        service.addNewUser(user);
-        return new ResponseEntity<>("New User Successfully Created!", HttpStatus.CREATED);
-    }
-
-    /**
-     * Update user details (API use).
-     *
-    @PostMapping("/update/{userId}")
-    @ResponseBody
-    public Object updateUser(@PathVariable int userId, @RequestBody User user) {
-        User existingUser = service.getUserById(userId);
-        if (existingUser == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found");
-        }
-
-        if (user.getUsername() != null) existingUser.setUsername(user.getUsername());
-        if (user.getPassword() != null) existingUser.setPassword(user.getPassword());
-        if (user.getEmail() != null) existingUser.setEmail(user.getEmail());
-        if (user.getPhoneNumber() != null) existingUser.setPhoneNumber(user.getPhoneNumber());
-        if (user.getDateJoined() != null) existingUser.setDateJoined(user.getDateJoined());
-
-        service.updateUser(existingUser);
-        return ResponseEntity.ok("User updated successfully");
-    }
-
-    **/
-
     @GetMapping("/")
     public String showLandingPage() {
         return "user/first-page";
     }
-
 
     /**
      * Show register form (MVC)

@@ -39,7 +39,6 @@ public class Provider {
     private String bio;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private ProviderStatus status;
 
     @Column(name = "active_date")

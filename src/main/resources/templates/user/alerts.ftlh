@@ -21,7 +21,7 @@
         <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4" style="max-width: 100%;">
         <a class="nav-link text-white" href="/users/home-page"><i class="bi bi-house-door"></i> Home</a>
         <a class="nav-link text-white" href="/services/explore"><i class="bi bi-search"></i> Explore</a>
-        <a class="nav-link text-white" href="/alerts"><i class="bi bi-bell"></i> Alerts</a>
+        <a class="nav-link text-white" href="/alerts/user"><i class="bi bi-bell"></i> Alerts</a>
         <a class="nav-link text-white" href="/appointments/service-history-page"><i class="bi bi-journal-check"></i>
             Service History</a>
         <a class="nav-link text-white" href="/users/profile-page"><i class="bi bi-person"></i> Profile</a>

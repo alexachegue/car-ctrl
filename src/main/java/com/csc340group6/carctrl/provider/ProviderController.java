@@ -46,7 +46,7 @@ public class ProviderController {
         model.addAttribute("service", service);
         model.addAttribute("category", category);
 
-        return "providers-by-service";
+        return "user/providers-by-service";
     }
 
 
@@ -82,7 +82,7 @@ public class ProviderController {
     @GetMapping("/register-form")
     public String showRegisterForm(Model model) {
         model.addAttribute("provider", new Provider());
-        return "provider-register";
+        return "/provider/provider-register";
     }
 
     @PostMapping("/register-form")
@@ -93,7 +93,7 @@ public class ProviderController {
 
         providerService.addNewProvider(provider);
         session.setAttribute("loggedInProvider", provider);
-        return "redirect:/providers/login-page";
+        return "redirect:/providers/home";
     }
 
     @GetMapping("/login-page")
@@ -143,22 +143,4 @@ public class ProviderController {
         return "provider/home";
     }
 
-    // http://localhost:8081/providers/all
-    @GetMapping("/all")
-    public ResponseEntity<List<Provider>> getAllProviders() {
-        return new ResponseEntity<>(providerService.getAllProviders(), HttpStatus.OK);
-    }
-
-    // http://localhost:8081/providers/4
-    @GetMapping("/{providerId}")
-    public ResponseEntity<Provider> getProviderById(@PathVariable int providerId) {
-        return new ResponseEntity<>(providerService.getProviderById(providerId), HttpStatus.OK);
-    }
-
-    // http://localhost:8081/providers/delete/7
-    @DeleteMapping("/delete/{providerId}")
-    public ResponseEntity<List<Provider>> deleteProviderById(@PathVariable int providerId) {
-        providerService.deleteProviderById(providerId);
-        return new ResponseEntity<>(providerService.getAllProviders(), HttpStatus.OK);
-    }
 }
