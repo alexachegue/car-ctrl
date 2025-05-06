@@ -70,8 +70,6 @@
                 <#list providerServices as service>
                 <div class="col">
                     <div class="card h-100">
-                        <#-- Optional: Replace with a service-specific image if you store one -->
-                        <img src="/images/default-service.jpg" class="card-img-top" alt="${service.name}">
                         <div class="card-body">
                             <h5 class="card-title">${service.name}</h5>
                             <p class="card-text">${service.description}</p>
