@@ -75,4 +75,8 @@ public class AppointmentService {
     public void deleteAppointment(int id) {
         appointmentRepository.deleteById(id);
     }
+
+    public List<Appointment> getAppointmentsByProviderId(int providerId) {
+        return appointmentRepository.getAppointmentsByProvider(providerId);
+    }
 }

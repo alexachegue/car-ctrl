@@ -13,4 +13,5 @@ public interface ReviewRepository extends JpaRepository<Review, Integer> {
     List<Review> findByProvider_ProviderId(int providerId);
     Optional<Review> findByAppointment_AppointmentId(int appointmentId);
 
+    List<Review> findByProviderId(int providerId);
 }

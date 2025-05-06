@@ -19,7 +19,7 @@ public class CarServiceController {
     public String showExplorePage(Model model) {
         System.out.println("Explore page handler triggered");
         model.addAttribute("categories", CarService.ServiceCategory.values());
-        return "explore";
+        return "user/explore";
     }
 
     @GetMapping("/service-category/{category}")
@@ -27,7 +27,7 @@ public class CarServiceController {
         List<CarService> services = carServiceService.getCarServicesByCategory(category);
         model.addAttribute("services", services);
         model.addAttribute("selectedCategory", category.name());
-        return "services";
+        return "user/services";
     }
 
     /**

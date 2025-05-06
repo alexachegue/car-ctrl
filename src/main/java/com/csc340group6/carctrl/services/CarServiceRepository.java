@@ -12,4 +12,7 @@ public interface CarServiceRepository extends JpaRepository<CarService, Integer>
 
     @Query("SELECT s FROM CarService s WHERE s.category = :category")
     List<CarService> findByCategory(@Param("category") CarService.ServiceCategory category);
+
+    List<CarService> findByProviderIsNull();
+    List<CarService> findByProvider_ProviderId(int providerId);
 }

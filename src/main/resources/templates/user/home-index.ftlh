@@ -33,7 +33,15 @@
     <div class="row">
         <div class="col-md-4">
             <div class="card profile-card shadow-lg p-3 mb-4 text-center">
-                <img src="/images/bmw328i.jpg" alt="User Profile" class="profile-image rounded-circle">
+
+                <#if user.profilePicture??>
+                <img src="/uploads/profile_pictures/${user.profilePicture}"
+                     alt="${user.username}'s Profile Picture"
+                     width="150" height="150" style="border-radius: 50%; object-fit: cover;">
+                <#else>
+                <p>No profile picture uploaded.</p>
+                </#if>
+
                 <#if user??>
                 <h2>Welcome, ${user.username}!</h2>
                 <p>Car Enthusiast | Member Since ${user.dateJoined?string("MMMM dd, yyyy")}
@@ -49,6 +57,7 @@
             <div class="col-md-6">
                 <div class="card shadow-sm mb-3 text-center equal-height">
                     <div class="card-body">
+                        <i class="bi bi-car-front" style="font-size: 2rem; color: ##ad1a10;"></i>
                         <h5 class="card-title">Explore Services</h5>
                         <p class="card-text">Find the right service for your vehicle today.</p>
                         <a href="/services/explore" class="btn btn-primary">Explore</a>
@@ -58,6 +67,7 @@
             <div class="col-md-6">
                 <div class="card shadow-sm mb-3 text-center equal-height">
                     <div class="card-body">
+                        <i class="bi bi-clock-history" style="font-size: 2rem; color: #0d6efd;"></i>
                         <h5 class="card-title">Service History</h5>
                         <p class="card-text">Your digital record keeper.</p>
                         <a href="/appointments/service-history-page" class="btn btn-primary">View</a>
@@ -67,6 +77,7 @@
             <div class="col-md-6">
                 <div class="card shadow-sm mb-3 text-center equal-height">
                     <div class="card-body">
+                        <i class="bi bi-bell-fill" style="font-size: 2rem; color: #ffc107;"></i>
                         <h5 class="card-title">Alerts</h5>
                         <p class="card-text">Stay alert to upcoming services.</p>
                         <a href="/alerts" class="btn btn-primary">View</a>
@@ -76,6 +87,7 @@
             <div class="col-md-6">
                 <div class="card shadow-sm mb-3 text-center equal-height">
                     <div class="card-body">
+                        <i class="bi bi-person-circle" style="font-size: 2rem; color: #e3e1e1;"></i>
                         <h5 class="card-title">Edit Information</h5>
                         <p class="card-text">Keep your vehicle details up-to-date.</p>
                         <a href="/users/profile-page" class="btn btn-primary">Edit</a>

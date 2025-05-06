@@ -31,7 +31,7 @@ public class CarController {
     @GetMapping("/register-car")
     public String showCarForm(Model model) {
         model.addAttribute("car", new Car());
-        return "car-register";
+        return "user/car-register";
     }
 
     /**

@@ -9,8 +9,14 @@ import java.util.List;
 public interface AlertRepository extends JpaRepository<Alert, Integer> {
     List<Alert> findByUser_UserIdOrderByCreatedAtDesc(int userId);
 
-    List<Alert> findByProvider_ProviderId(int providerId);
-    List<Alert> findByProvider_ProviderIdAndAlertType(int providerId, Alert.AlertType alertType);
+    List<Alert> findByAlertType(String alertType);
 
+    // Get all alerts for a specific provider
+    List<Alert> findByProvider_ProviderId(int providerId);
+
+    // Get all alerts for a specific provider and alert type
+    List<Alert> findByProviderIdAndAlertType(int providerId, String alertType);
+
+    // Get all alerts for a specific appointment
     List<Alert> findByAppointment_AppointmentId(int appointmentId);
 }

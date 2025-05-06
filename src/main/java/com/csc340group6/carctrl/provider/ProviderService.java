@@ -10,22 +10,18 @@ public class ProviderService {
     @Autowired
     private ProviderRepository providerRepository;
 
-    // Fetch all Providers
     public List<Provider> getAllProviders() {
         return providerRepository.findAll();
     }
 
-    // Fetch a unique Provider
     public Provider getProviderById(int providerId) {
         return providerRepository.findById(providerId).orElse(null);
     }
 
-    // Fetch a Provider by providername
-    public Provider getProviderByProvidername(String providername) {
+    public Provider getByProvidername(String providername) {
         return providerRepository.getProviderByProvidername(providername);
     }
 
-    // Add a new Provider
     public void addNewProvider(Provider provider) {
         providerRepository.save(provider);
     }
@@ -47,12 +43,10 @@ public class ProviderService {
         }
     }
 
-    // Delete a unique Provider
     public void deleteProviderById(int providerId) {
         providerRepository.deleteById(providerId);
     }
 
-    //Find by status using enum
     public List<Provider> getProvidersByStatus(Provider.ProviderStatus status) {
         return providerRepository.findByStatus(status);
     }

@@ -25,10 +25,12 @@ public class User {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dateJoined;
 
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Car> cars;
+
+    @Column(name = "profile_picture")
+    private String profilePicture;
 
     public User() {}
 
@@ -41,7 +43,7 @@ public class User {
         this.dateJoined = dateJoined;
     }
 
-    public User(int userId, String username, String password, String email, String phoneNumber, Date dateJoined, List<Car> cars){
+    public User(int userId, String username, String password, String email, String phoneNumber, Date dateJoined, List<Car> cars, String pfp){
         this.userId = userId;
         this.username = username;
         this.password = password;
@@ -49,6 +51,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.dateJoined = dateJoined;
         this.cars = cars;
+        this.profilePicture = pfp;
     }
 
     public User(String username, String password, String email, String phoneNumber, Date dateJoined){
@@ -113,6 +116,14 @@ public class User {
 
     public void setCars(List<Car> cars) {
         this.cars = cars;
+    }
+
+    public String getProfilePicture(){
+        return this.profilePicture;
+    }
+
+    public void setProfilePicture(String pfp){
+        this.profilePicture = pfp;
     }
 
     @Override

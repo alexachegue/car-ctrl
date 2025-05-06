@@ -16,6 +16,12 @@ public class AlertController {
     @Autowired
     private AlertRepository alertRepository;
 
+    @Autowired
+    private AlertService alertService;
+
+    /**
+     *  CUSTOMER MVC
+     */
     @GetMapping
     public String showAlerts(HttpSession session, Model model) {
         Object userIdObj = session.getAttribute("userId");
@@ -25,6 +31,39 @@ public class AlertController {
 
         List<Alert> alerts = alertRepository.findByUser_UserIdOrderByCreatedAtDesc(userId);
         model.addAttribute("alerts", alerts);
-        return "alerts";
+        return "user/alerts";
     }
+
+    /**
+     *  PROVIDER MVC
+     */
+    //  Main FreeMarker view of alerts with optional type filter and providerId from request param
+    @GetMapping
+    public String viewAllAlerts(@RequestParam(required = false) String type,
+                                @RequestParam int providerId,
+                                Model model) {
+        List<Alert> alertList;
+
+        if (type != null && !type.isEmpty()) {
+            alertList = alertService.getAlertsByType(type);
+            model.addAttribute("filter", type);
+        } else {
+            alertList = alertService.getAllAlerts();
+            model.addAttribute("filter", "All");
+        }
+
+        model.addAttribute("alertList", alertList);
+        model.addAttribute("providerId", providerId);
+        model.addAttribute("title", "All Alerts");
+
+        return "provider/alert-list"; // this maps to your alert-list.ftlh
+    }
+
+    //  Delete an alert by ID (triggered from UI form)
+    @PostMapping("/delete/{alertId}")
+    public String deleteAlert(@PathVariable int alertId) {
+        alertService.deleteAlertById(alertId);
+        return "redirect:/alerts?providerId=4"; // Replace with dynamic if needed
+    }
+
 }

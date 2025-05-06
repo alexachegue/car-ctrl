@@ -13,6 +13,7 @@ import com.csc340group6.carctrl.user.User;
 import com.csc340group6.carctrl.user.UserRepository;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -48,6 +49,9 @@ public class AppointmentController {
     @Autowired
     private AlertService alertService;
 
+    /**
+     *  CUSTOMER MVC
+     */
     @GetMapping("/form")
     public String showAppointmentForm(@RequestParam("providerId") int providerId,
                                       @RequestParam("serviceId") int serviceId,
@@ -72,7 +76,7 @@ public class AppointmentController {
         model.addAttribute("service", service);
         model.addAttribute("providers", providerRepository.findAll());
 
-        return "appointment-form";
+        return "user/appointment-form";
     }
 
     @PostMapping("/create")
@@ -99,7 +103,6 @@ public class AppointmentController {
         return "redirect:/appointments/confirmation/" + appointment.getAppointmentId();
     }
 
-
     @GetMapping("/confirmation/{appointmentId}")
     public String showConfirmation(@PathVariable int appointmentId, HttpSession session, Model model) {
         Appointment appointment = appointmentService.getAppointmentById(appointmentId);
@@ -107,7 +110,7 @@ public class AppointmentController {
 
         model.addAttribute("appointment", appointment);
         model.addAttribute("user", user);
-        return "appointment-confirmation";
+        return "user/appointment-confirmation";
     }
 
     @GetMapping("/service-history-page")
@@ -128,7 +131,26 @@ public class AppointmentController {
         model.addAttribute("appointments", appointments);
         model.addAttribute("now", new Date());
 
-        return "service-history";
+        return "user/service-history";
+    }
+
+
+    /**
+     * PROVIDER MVC
+     */
+    @GetMapping ("/appointments")
+    public String showAppointments(@RequestParam("providerId") int providerId, Model model) {
+        List<Appointment> appointments = appointmentService.getAppointmentsByProviderId(providerId);
+        model.addAttribute("appointments", appointments);
+        model.addAttribute("providerId", providerId);
+        model.addAttribute("title", "Appointments");
+        return "provider/appointment-list";
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteAppointment(@PathVariable int id) {
+        appointmentService.deleteAppointment(id);
+        return ResponseEntity.ok().build();
     }
 
 }

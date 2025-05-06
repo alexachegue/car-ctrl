@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="post" action="/users/register-form">
+                    <form method="post" action="/users/register-form" enctype="multipart/form-data">
                         <div class="mb-3">
                             <label class="form-label">Username</label>
                             <input class="form-control" type="text" name="username" required>
@@ -41,6 +41,10 @@
                         <div class="mb-3">
                             <label class="form-label">Phone Number</label>
                             <input class="form-control" type="text" name="phoneNumber">
+                        </div>
+                        <div>
+                            <label>Profile Picture:</label>
+                            <input type="file" name="fileUpload" accept="image/*"><br>
                         </div>
                         <button class="btn btn-primary w-100">Register</button>
                     </form>

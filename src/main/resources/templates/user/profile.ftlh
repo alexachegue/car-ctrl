@@ -37,6 +37,13 @@
         <div class="card-body">
             <h5 class="mb-3">User Info</h5>
             <ul class="list-group mb-4">
+                <#if user.profilePicture??>
+                <img src="/uploads/profile_pictures/${user.profilePicture}"
+                     alt="${user.username}'s Profile Picture"
+                     width="150" height="150" style="border-radius: 50%; object-fit: cover;">
+                <#else>
+                <p>No profile picture uploaded.</p>
+                </#if>
                 <li class="list-group-item"><strong>Email:</strong> ${user.email}</li>
                 <li class="list-group-item"><strong>Phone:</strong> ${user.phoneNumber}</li>
                 <li class="list-group-item"><strong>Joined:</strong>${user.dateJoined?string("MMMM dd, yyyy")}</li>
@@ -58,7 +65,9 @@
             </#if>
         </div>
 
-    <a href="/cars/register-car" class="btn btn-primary w-100 mt-3">Register A Car</a>
+    <a href="/cars/register-car" class="btn btn-primary w-100 mt-2">Register A Car</a>
+    <a href="/users/edit-profile" class="btn btn-dark mt-2">Edit Profile</a>
+
 
     <form action="/users/logout" method="post" class="mt-4">
         <button class="btn btn-dark mt-2">Logout</button>

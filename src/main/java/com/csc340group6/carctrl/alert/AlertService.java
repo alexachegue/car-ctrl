@@ -46,15 +46,50 @@ public class AlertService {
         alertRepository.save(alert);
     }
 
+    //     Get all alerts
+    public List<Alert> getAllAlerts() {
+        return alertRepository.findAll();
+    }
+    public List<Alert> getAlertsByType(String type) {
+        if (type == null || type.equalsIgnoreCase("All")) {
+            return alertRepository.findAll();
+        } else {
+            return alertRepository.findByAlertType(type);
+        }
+    }
+
+    public void deleteAlertById(int alertId) {
+        alertRepository.deleteById(alertId);
+    }
+
+
+    // Create an alert for a provider
+    public Alert createAlert(int providerId, int userId, int appointmentId, Alert.AlertType type, String message) {
+        Alert alert = new Alert();
+        alert.setProvider(providerRepository.findById(providerId).orElse(null));
+        alert.setUser(userRepository.findById(userId).orElseThrow());
+        alert.setAppointment(appointmentRepository.findById(appointmentId).orElseThrow());
+        alert.setAlertType(type);
+        alert.setMessage(message);
+        alert.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+
+        alertRepository.save(alert);
+        return alert;
+    }
+
+    // Get all alerts for a specific provider
     public List<Alert> getAlertsByProviderId(int providerId) {
         return alertRepository.findByProvider_ProviderId(providerId);
     }
 
-    public List<Alert> getAlertsByProviderIdAndAlertType(int providerId, Alert.AlertType alertType) {
-        return alertRepository.findByProvider_ProviderIdAndAlertType(providerId, alertType);
+    // Get all alerts for a specific provider and alert type
+    public List<Alert> getAlertsByProviderIdAndAlertType(int providerId, String alertType) {
+        return alertRepository.findByProviderIdAndAlertType(providerId, alertType);
     }
 
+    // Get all alerts for a specific appointment
     public List<Alert> getAlertsByAppointmentId(int appointmentId) {
         return alertRepository.findByAppointment_AppointmentId(appointmentId);
     }
+
 }

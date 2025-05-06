@@ -46,6 +46,16 @@ public class Alert {
 
     private Boolean dismissible = true;
 
+    public Alert(){}
+
+    public Alert(User user, Provider provider, Appointment appointment, AlertType alertType, String message) {
+        this.provider = provider;
+        this.user = user;
+        this.appointment = appointment;
+        this.alertType = alertType;
+        this.message = message;
+    }
+
     public int getAlertId() {
         return alertId;
     }
@@ -69,7 +79,6 @@ public class Alert {
     public void setProvider(Provider provider) {
         this.provider = provider;
     }
-
 
     public Appointment getAppointment() {
         return appointment;

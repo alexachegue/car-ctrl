@@ -26,12 +26,9 @@ public class CarService {
     private String name;
     private String description;
 
-    @ManyToMany(mappedBy = "services")
-    private List<Provider> providers;
-
-    public List<Provider> getProviders() {
-        return providers;
-    }
+    @ManyToOne
+    @JoinColumn(name = "provider_id")
+    private Provider provider;
 
     public CarService() {}
 
@@ -74,8 +71,12 @@ public class CarService {
         this.description = description;
     }
 
-    public void setProviders(List<Provider> providers) {
-        this.providers = providers;
+    public Provider getProvider() {
+        return provider;
+    }
+
+    public void setProvider(Provider provider) {
+        this.provider = provider;
     }
 
 }
