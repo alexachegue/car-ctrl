@@ -28,13 +28,13 @@ public class AdminController {
         model.addAttribute("adminList", adminService.getAllAdmins());
         model.addAttribute("title", "All Admins");
 
-        return "admin-list";
+        return "admin/admin-list";
     }
 
     @GetMapping("/adminlogin-page")
     public String adminLogIn(Model model) {
         model.addAttribute("adminUser", new com.csc340group6.carctrl.Admin.Admin());
-        return "admin-login";
+        return "admin/admin-login";
     }
     @PostMapping("/adminlogin-page")
     public String handleLogIn(@ModelAttribute com.csc340group6.carctrl.Admin.Admin admin, HttpSession session) {
