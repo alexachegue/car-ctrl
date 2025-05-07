@@ -26,6 +26,7 @@
         <a class="nav-link" href="/service/services"><i class="bi bi-tools"></i> Services</a>
         <a class="nav-link active" href="/alerts"><i class="bi bi-bell"></i> Alerts</a>
         <a class="nav-link" href="/reviews/manage"><i class="bi bi-chat-left-text"></i> Reviews</a>
+        <a class="nav-link" href="/providers/stats"><i class="bi bi-graph-up"></i> View Statistics</a>
     </nav>
 
     <div class="container mt-4" style="margin-left: 270px;">

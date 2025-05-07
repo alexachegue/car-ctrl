@@ -13,13 +13,15 @@
 <div class="container-fluid">
     <!-- Sidebar -->
     <nav class="sidebar">
-        <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4" style="max-width: 100%;">
+        <img src="/images/carcontrollogo.png" alt="CarCtrl Logo"
+             style="display: block; margin: 0 auto 20px auto; max-width: 80px; height: auto;">
         <a class="nav-link" href="/providers/home"><i class="bi bi-house-door"></i> Home</a>
         <a class="nav-link active" href="/providers/profile"><i class="bi bi-person"></i> Profile</a>
         <a class="nav-link" href="/appointments"><i class="bi bi-calendar-check"></i> Appointments</a>
         <a class="nav-link" href="/service/services"><i class="bi bi-tools"></i> Services</a>
         <a class="nav-link" href="/alerts"><i class="bi bi-bell"></i> Alerts</a>
         <a class="nav-link" href="/reviews/manage"><i class="bi bi-chat-left-text"></i> Reviews</a>
+        <a class="nav-link" href="/providers/stats"><i class="bi bi-graph-up"></i> View Statistics</a>
     </nav>
 
     <!-- Main Content -->
@@ -55,7 +57,7 @@
                 <p><strong>Operating Hours:</strong> ${provider.operatingHours!"Not specified"}</p>
                 <p><strong>Status:</strong> ${provider.status!"Unknown"}</p>
                 <p><strong>Active Since:</strong> ${provider.activeDate?string("yyyy-MM-dd")}</p>
-                <a href="/providers/edit/${provider.providerId}" class="btn btn-primary mt-2">Edit Profile</a>
+                <a href="/providers/edit/${provider.providerId}" class="btn btn-primary">Edit Contact Info</a>
             </div>
         </div>
 
@@ -66,23 +68,28 @@
             <#if providerServices?size == 0>
             <p class="text-muted">You haven't selected any services yet.</p>
             <#else>
-            <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="row row-cols-1 row-cols-md-2 g-4 mb-4">
                 <#list providerServices as service>
                 <div class="col">
                     <div class="card h-100">
-                        <div class="card-body">
+                        <div class="card-body text-center">
                             <h5 class="card-title">${service.name}</h5>
+                            <p class="card-text"><strong>Category:</strong> ${service.category}</p>
                             <p class="card-text">${service.description}</p>
-                            <p class="text-muted"><em>Category: ${service.category}</em></p>
-                            <a href="/bookings/book/${service.serviceId}" class="btn btn-primary">Book Now</a>
+                            <form method="post" action="/service/unassign">
+                                <input type="hidden" name="serviceId" value="${service.serviceId}">
+                                <button class="btn btn-primary btn-sm mt-2" onclick="return confirm('Remove this service?');">Remove</button>
+                            </form>
                         </div>
                     </div>
                 </div>
             </#list>
         </div>
-        </#if>
+    </#if>
+</div>
 
-    <!-- Add Service Card -->
+
+<!-- Add Service Card -->
     <div class="card mt-4">
         <div class="card-body text-center">
             <i class="bi bi-plus-circle" style="font-size: 2rem; color: #C91B00;"></i>

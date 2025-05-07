@@ -14,10 +14,10 @@ import java.util.Date;
 public class Appointment {
 
     public enum Status {
-        PENDING,
-        SCHEDULED,
-        COMPLETED,
-        CANCELLED
+        Pending,
+        Scheduled,
+        //Completed,
+        Cancelled
     }
 
 

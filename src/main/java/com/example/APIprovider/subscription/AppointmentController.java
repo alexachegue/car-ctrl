@@ -97,7 +97,7 @@ public class AppointmentController {
         appointment.setProvider(providerRepository.findById(providerId).orElseThrow());
         appointment.setAppointmentDate(Timestamp.valueOf(appointmentDate.replace("T", " ") + ":00"));
         appointment.setDescription(description);
-        appointment.setStatus(Appointment.Status.PENDING);
+        appointment.setStatus(Appointment.Status.Pending);
 
         appointmentService.createAppointment(appointment);
         alertService.createAlertForUser(provider.getProviderId(), userId, appointment.getAppointmentId(), Alert.AlertType.primary, "Appointment submitted and is pending confirmation.");
@@ -154,9 +154,9 @@ public class AppointmentController {
         Appointment appointment = appointmentService.getAppointmentById(appointmentId);
         if (appointment == null) return "redirect:/appointments";
 
-        // Make sure the current status is "PENDING"
-        if (appointment.getStatus() == Appointment.Status.PENDING) {
-            appointment.setStatus(Appointment.Status.SCHEDULED);
+
+        if (appointment.getStatus() == Appointment.Status.Pending) {
+            appointment.setStatus(Appointment.Status.Scheduled);
             appointmentService.saveAppointment(appointment);
 
             // send alert to customer

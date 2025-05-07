@@ -30,6 +30,10 @@ public class ProviderService {
     // Update Provider information
     public void updateProvider(int providerId, Provider updatedProvider) {
         Provider existing = getProviderById(providerId);
+        System.out.println("Updating: " + updatedProvider.getProvidername());
+        System.out.println("Status: " + updatedProvider.getStatus());
+        System.out.println("Address: " + updatedProvider.getAddress());
+
         if (existing != null) {
             existing.setProvidername(updatedProvider.getProvidername());
             existing.setEmail(updatedProvider.getEmail());

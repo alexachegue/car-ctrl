@@ -2,6 +2,8 @@ package com.example.APIprovider.provider;
 
 import com.example.APIprovider.services.CarService;
 import com.example.APIprovider.services.CarServiceService;
+import com.example.APIprovider.stats.ServiceStats;
+import com.example.APIprovider.stats.StatsService;
 import org.springframework.ui.Model;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,10 @@ public class ProviderController {
 
     @Autowired
     private CarServiceService carServiceService;
+
+    @Autowired
+    private StatsService statsService;
+
 
     @GetMapping("/")
     public String showLandingPage() {
@@ -99,11 +105,14 @@ public class ProviderController {
 
     @GetMapping("/profile")
     public String viewProfile(HttpSession session, Model model) {
-        Provider provider = (Provider) session.getAttribute("loggedInProvider");
-        if (provider == null) {
+        Provider sessionProvider = (Provider) session.getAttribute("loggedInProvider");
+        if (sessionProvider == null) {
             return "redirect:/providers/login";
         }
-        //List<CarService> providerServices = carServiceService.getServicesByProviderId(providerId);
+
+        Provider provider = providerService.getProviderById(sessionProvider.getProviderId());
+
+        session.setAttribute("loggedInProvider", provider);
 
         model.addAttribute("provider", provider);
         model.addAttribute("providerServices", carServiceService.getServicesByProviderId(provider.getProviderId()));
@@ -111,7 +120,7 @@ public class ProviderController {
         return "provider/profile";
     }
 
-    @GetMapping("/edit")
+    @GetMapping("/edit/{providerId}")
     public String editForm(@PathVariable int providerId, Model model) {
         Provider provider = providerService.getProviderById(providerId);
         model.addAttribute("provider", provider);
@@ -119,10 +128,25 @@ public class ProviderController {
         return "provider/profile-edit";
     }
 
+    @GetMapping("/stats")
+    public String viewStats(HttpSession session, Model model) {
+        Provider provider = (Provider) session.getAttribute("loggedInProvider");
+        if (provider == null) {
+            return "redirect:/providers/login";
+        }
+
+        List<ServiceStats> stats = statsService.getProviderStats(provider.getProviderId());
+
+        model.addAttribute("stats", stats);
+        return "provider/statistics";
+    }
+
+
+
     @PostMapping("/update")
-    public String updateProvider(@PathVariable int providerId, Provider provider) {
+    public String updateProvider(@RequestParam int providerId, @ModelAttribute Provider provider) {
         providerService.updateProvider(providerId, provider);
-        return "redirect:/providers/profile/" + providerId;
+        return "redirect:/providers/profile";
     }
 
     @PostMapping("/logout")
