@@ -12,12 +12,13 @@
 <div class="container-fluid">
     <!-- Sidebar -->
     <nav class="sidebar">
-        <a class="nav-link" href="/providers/home?providerId=${providerId}"><i class="bi bi-house-door"></i> Home</a>
-        <a class="nav-link" href="/providers/profile/${providerId}"><i class="bi bi-person"></i> Profile</a>
-        <a class="nav-link active" href="/appointments?providerId=${providerId}"><i class="bi bi-calendar-check"></i> Appointments</a>
-        <a class="nav-link" href="/service/services/${providerId}"><i class="bi bi-tools"></i> Services</a>
-        <a class="nav-link" href="/alerts?providerId=${providerId}"><i class="bi bi-bell"></i> Alerts</a>
-        <a class="nav-link" href="/reviews/manage?providerId=${providerId}"><i class="bi bi-chat-left-text"></i> Reviews</a>
+        <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4" style="max-width: 100%;">
+        <a class="nav-link" href="/providers/home"><i class="bi bi-house-door"></i> Home</a>
+        <a class="nav-link" href="/providers/profile"><i class="bi bi-person"></i> Profile</a>
+        <a class="nav-link active" href="/appointments"><i class="bi bi-calendar-check"></i> Appointments</a>
+        <a class="nav-link" href="/services/services"><i class="bi bi-tools"></i> Services</a>
+        <a class="nav-link" href="/alerts"><i class="bi bi-bell"></i> Alerts</a>
+        <a class="nav-link" href="/reviews/manage"><i class="bi bi-chat-left-text"></i> Reviews</a>
     </nav>
 
     <!-- Main Content -->
@@ -48,7 +49,16 @@
                         <td>${appointment.service.name}</td>
                         <td>${appointment.description!"-"}</td>
                         <td>${appointment.appointmentDate?string("yyyy-MM-dd HH:mm")}</td>
-                        <td>${appointment.status}</td>
+                        <td>
+                            ${appointment.status}
+                            <#if appointment.status == "Pending">
+                            <form action="/appointments/accept" method="post" style="display:inline;">
+                                <input type="hidden" name="appointmentId" value="${appointment.appointmentId}">
+                                <button type="submit" class="btn btn-success btn-sm ms-2">Accept</button>
+                            </form>
+                        </#if>
+                        </td>
+
                     </tr>
                     </#list>
                     </tbody>

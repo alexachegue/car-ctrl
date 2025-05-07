@@ -91,15 +91,6 @@ public class ReviewController {
         return "user/review-details";
     }
 
-    @GetMapping("/respond/{reviewId}")
-    public String showProviderResponseForm(@PathVariable int reviewId, Model model) {
-        Review review = reviewService.getReviewById(reviewId);
-        model.addAttribute("review", review);
-        return "user/provider-review-manage";
-    }
-
-
-
     /**
      * PROVIDER MVC
      */
@@ -112,7 +103,6 @@ public class ReviewController {
         return "provider/review-manage";
     }
 
-    /**
     @GetMapping("/provider")
     public String showProviderReviews(@RequestParam("providerId") int providerId, Model model) {
         List<Review> reviews = reviewService.getReviewsByProviderId(providerId);
@@ -131,8 +121,14 @@ public class ReviewController {
 
         return "provider/review-manage";
     }
+
     @GetMapping("/manage")
-    public String showReviewDashboard(@RequestParam("providerId") int providerId, Model model) {
+    public String showReviewDashboard(HttpSession session, Model model) {
+        Object providerIdObj = session.getAttribute("providerId");
+        if (providerIdObj == null) return "redirect:/providers/login";
+
+        int providerId = (int) providerIdObj;
+
         List<Review> reviews = reviewService.getReviewsByProviderId(providerId);
         long repliedCount = reviews.stream().filter(r -> r.getReply() != null).count();
         double avgRating = reviews.stream().mapToInt(Review::getRating).average().orElse(0.0);
@@ -145,6 +141,4 @@ public class ReviewController {
 
         return "provider/review-manage";
     }
-
-    **/
 }

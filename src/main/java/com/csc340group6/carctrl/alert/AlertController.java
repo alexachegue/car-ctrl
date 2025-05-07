@@ -1,5 +1,6 @@
 package com.csc340group6.carctrl.alert;
 
+import com.csc340group6.carctrl.provider.Provider;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,18 +38,24 @@ public class AlertController {
     /**
      *  PROVIDER MVC
      */
-    //  Main FreeMarker view of alerts with optional type filter and providerId from request param
     @GetMapping
     public String viewAllAlerts(@RequestParam(required = false) String type,
-                                @RequestParam int providerId,
+                                HttpSession session,
                                 Model model) {
-        List<Alert> alertList;
+        Object providerObj = session.getAttribute("loggedInProvider");
+        if (providerObj == null) {
+            return "redirect:/providers/login";
+        }
 
+        Provider provider = (Provider) providerObj;
+        int providerId = provider.getProviderId();
+
+        List<Alert> alertList;
         if (type != null && !type.isEmpty()) {
-            alertList = alertService.getAlertsByType(type);
+            alertList = alertService.getAlertsByProviderIdAndAlertType(providerId, Alert.AlertType.valueOf(type));
             model.addAttribute("filter", type);
         } else {
-            alertList = alertService.getAllAlerts();
+            alertList = alertService.getAlertsByProviderId(providerId);
             model.addAttribute("filter", "All");
         }
 
@@ -56,8 +63,9 @@ public class AlertController {
         model.addAttribute("providerId", providerId);
         model.addAttribute("title", "All Alerts");
 
-        return "provider/alert-list"; // this maps to your alert-list.ftlh
+        return "provider/alert-list";
     }
+
 
     //  Delete an alert by ID (triggered from UI form)
     @PostMapping("/delete/{alertId}")

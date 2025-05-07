@@ -13,12 +13,13 @@
 <div class="container-fluid">
     <!-- Sidebar -->
     <nav class="sidebar">
-        <a class="nav-link active" href="/providers/home?providerId=${providerId}"><i class="bi bi-house-door"></i> Home</a>
-        <a class="nav-link" href="/providers/profile/${providerId}"><i class="bi bi-person"></i> Profile</a>
-        <a class="nav-link" href="/appointments?providerId=${providerId}"><i class="bi bi-calendar-check"></i> Appointments</a>
-        <a class="nav-link" href="/service/services/${providerId}"><i class="bi bi-tools"></i> Services</a>
-        <a class="nav-link" href="/alerts?providerId=${providerId}"><i class="bi bi-bell"></i> Alerts</a>
-        <a class="nav-link" href="/reviews/manage?providerId=${providerId}"><i class="bi bi-chat-left-text"></i> Reviews</a>
+        <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4" style="max-width: 100%;">
+        <a class="nav-link active" href="/providers/home"><i class="bi bi-house-door"></i> Home</a>
+        <a class="nav-link" href="/providers/profile"><i class="bi bi-person"></i> Profile</a>
+        <a class="nav-link" href="/appointments"><i class="bi bi-calendar-check"></i> Appointments</a>
+        <a class="nav-link" href="/services/services"><i class="bi bi-tools"></i> Services</a>
+        <a class="nav-link" href="/alerts"><i class="bi bi-bell"></i> Alerts</a>
+        <a class="nav-link" href="/reviews/manage"><i class="bi bi-chat-left-text"></i> Reviews</a>
     </nav>
 
     <!-- Main Content -->
@@ -34,12 +35,12 @@
 
                 <#if profileCompletion < 100>
                 <p>Your profile is ${profileCompletion}% complete.</p>
-                <a href="/providers/profile/${providerId}" class="btn btn-primary">Complete your profile now</a>
+                <a href="/providers/profile" class="btn btn-primary">Complete your profile now</a>
                 <#else>
                 <p>
                     <i class="bi bi-check-square-fill"></i> Fully completed!
                 </p>
-                <a href="/providers/profile/${providerId}" class="btn btn-primary">View your profile</a>
+                <a href="/providers/profile" class="btn btn-primary">View your profile</a>
             </#if>
             <!-- add a progress bar(not sure) -->
 
@@ -59,7 +60,7 @@
                     <div class="card-body text-center">
                         <i class="bi bi-tools" style="font-size: 2rem; color: #C91B00;"></i>
                         <h5 class="card-title mt-2">Manage Services</h5>
-                        <a href="/service/services/${providerId}" class="btn btn-primary">Go to Services</a>
+                        <a href="/services/services" class="btn btn-primary">Go to Services</a>
                     </div>
                 </div>
             </div>
@@ -68,7 +69,7 @@
                     <div class="card-body text-center">
                         <i class="bi bi-calendar-check" style="font-size: 2rem; color: #C91B00;"></i>
                         <h5 class="card-title mt-2">Manage Appointments</h5>
-                        <a href="/appointments?providerId=${providerId}" class="btn btn-primary">Go to Appointments</a>
+                        <a href="/appointments" class="btn btn-primary">Go to Appointments</a>
                     </div>
                 </div>
             </div>
@@ -77,7 +78,7 @@
                     <div class="card-body text-center">
                         <i class="bi bi-bell" style="font-size: 2rem; color: #C91B00;"></i>
                         <h5 class="card-title mt-2">View Notifications</h5>
-                        <a href="/alerts?providerId=${providerId}" class="btn btn-primary">Go to Alerts</a>
+                        <a href="/alerts" class="btn btn-primary">Go to Alerts</a>
                     </div>
                 </div>
             </div>
@@ -86,10 +87,13 @@
                     <div class="card-body text-center">
                         <i class="bi bi-chat-left-text" style="font-size: 2rem; color: #C91B00;"></i>
                         <h5 class="card-title mt-2">Manage Reviews</h5>
-                        <a href="/reviews/manage?providerId=${providerId}" class="btn btn-primary">Go to Reviews</a>
+                        <a href="/reviews/manage" class="btn btn-primary">Go to Reviews</a>
                     </div>
                 </div>
             </div>
+            <form action="/providers/logout" method="post">
+                <button type="submit" class="btn btn-dark mt-3"><i class="bi bi-box-arrow-left"></i> Logout</button>
+            </form>
         </div>
     </div>
 </div>

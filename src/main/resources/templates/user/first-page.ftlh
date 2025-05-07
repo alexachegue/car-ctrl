@@ -64,7 +64,7 @@
 
     <p class="lead">Choose how you'd like to log in</p>
     <a href="/users/login-page" class="btn btn-primary btn-lg mb-3 w-100">Login as User</a>
-    <a href="/providers/login-page" class="btn btn-outline-light btn-lg mb-3 w-100">Login as Service Provider</a>
+    <a href="/providers/login" class="btn btn-outline-light btn-lg mb-3 w-100">Login as Service Provider</a>
 
     <a href="/admin/adminlogin-page" class="btn btn-sm">Admin Login</a>
 

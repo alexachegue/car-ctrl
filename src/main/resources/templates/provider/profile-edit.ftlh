@@ -13,12 +13,12 @@
 <div class="container-fluid">
     <!-- Sidebar -->
     <nav class="sidebar">
-        <a class="nav-link" href="/providers/home?providerId=${providerId}"><i class="bi bi-house-door"></i> Home</a>
-        <a class="nav-link" href="/providers/profile/${providerId}"><i class="bi bi-person"></i> Profile</a>
-        <a class="nav-link" href="/appointments?providerId=${providerId}"><i class="bi bi-calendar-check"></i> Appointments</a>
-        <a class="nav-link" href="/service/services/${providerId}"><i class="bi bi-tools"></i> Services</a>
-        <a class="nav-link" href="/alerts?providerId=${providerId}"><i class="bi bi-bell"></i> Alerts</a>
-        <a class="nav-link" href="/reviews/manage?providerId=${providerId}"><i class="bi bi-chat-left-text"></i> Reviews</a>
+        <a class="nav-link" href="/providers/home"><i class="bi bi-house-door"></i> Home</a>
+        <a class="nav-link" href="/providers/profile"><i class="bi bi-person"></i> Profile</a>
+        <a class="nav-link" href="/appointments"><i class="bi bi-calendar-check"></i> Appointments</a>
+        <a class="nav-link" href="/services/services"><i class="bi bi-tools"></i> Services</a>
+        <a class="nav-link" href="/alerts"><i class="bi bi-bell"></i> Alerts</a>
+        <a class="nav-link" href="/reviews/manage"><i class="bi bi-chat-left-text"></i> Reviews</a>
     </nav>
 
 
@@ -44,17 +44,17 @@
 
             <div class="mb-3">
                 <label for="address">Address</label>
-                <input type="text" class="form-control" id="address" name="address" value="${provider.address}">
+                <input type="text" class="form-control" id="address" name="address" value="${provider.address!''}">
             </div>
 
             <div class="mb-3">
                 <label for="operatingHours">Operating Hours</label>
-                <input type="text" class="form-control" id="operatingHours" name="operatingHours" value="${provider.operatingHours}">
+                <input type="text" class="form-control" id="operatingHours" name="operatingHours" value="${provider.operatingHours!''}">
             </div>
 
             <div class="mb-3">
                 <label for="bio">Bio</label>
-                <textarea class="form-control" id="bio" name="bio">${provider.bio}</textarea>
+                <textarea class="form-control" id="bio" name="bio">${provider.bio!''}</textarea>
             </div>
 
             <div class="mb-3">

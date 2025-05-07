@@ -54,75 +54,60 @@ public class ProviderController {
     /**
      * PROVIDER MVC
      */
-    @GetMapping("/profile/{providerId}")
-    public String viewProfile(@PathVariable int providerId, Model model) {
-        Provider provider = providerService.getProviderById(providerId);
-        List<CarService> providerServices = carServiceService.getServicesByProviderId(providerId);
-
-        model.addAttribute("provider", provider);
-        model.addAttribute("providerServices", providerServices);
-        model.addAttribute("title", "Profile: " + provider.getProvidername());
-        return "provider/profile";
+    @GetMapping("/")
+    public String showLandingPage() {
+        return "provider/first-page";
     }
 
-    @GetMapping("/edit/{providerId}")
-    public String editForm(@PathVariable int providerId, Model model) {
-        Provider provider = providerService.getProviderById(providerId);
-        model.addAttribute("provider", provider);
-        model.addAttribute("title", "Edit Profile");
-        return "provider/profile-edit";
-    }
-
-    @PostMapping("/update/{providerId}")
-    public String updateProvider(@PathVariable int providerId, Provider provider) {
-        providerService.updateProvider(providerId, provider);
-        return "redirect:/providers/profile/" + providerId;
-    }
-
-    @GetMapping("/register-form")
+    @GetMapping("/register")
     public String showRegisterForm(Model model) {
         model.addAttribute("provider", new Provider());
-        return "/provider/provider-register";
+        return "provider/provider-register";
     }
 
-    @PostMapping("/register-form")
+    @PostMapping("/register")
     public String handleRegister(@ModelAttribute Provider provider, HttpSession session) {
         if (provider.getActiveDate() == null) {
             provider.setActiveDate(new Date());
         }
 
         providerService.addNewProvider(provider);
-        session.setAttribute("loggedInProvider", provider);
-        return "redirect:/providers/home";
+        session.setAttribute("loggedInProvider",provider);
+        session.setAttribute("providerId",provider.getProviderId());
+//       providerService.addNewProvider(provider);
+//        session.setAttribute("loggedInProvider", provider);
+        return "redirect:/providers/login";
     }
 
-    @GetMapping("/login-page")
-    public String showLoginPage(Model model) {
+    @GetMapping("/login")
+    public String showLoginForm(Model model) {
         model.addAttribute("provider", new Provider());
-        return "provider/login";
+        return "provider/provider-login";
     }
 
-    @PostMapping("/login-page")
+    @PostMapping("/login")
     public String handleLogin(@ModelAttribute Provider provider, HttpSession session, Model model) {
         Provider foundProvider = providerService.getByProvidername(provider.getProvidername());
-        session.setAttribute("loggedInProvider", foundProvider);
-
 
         if (foundProvider == null || !foundProvider.getPassword().equals(provider.getPassword())) {
             model.addAttribute("error", "Invalid credentials");
-            return "provider/login";
+            return "provider/provider-login";
         }
-        return "redirect:/providers/home";
+
+        session.setAttribute("loggedInProvider", foundProvider);
+        session.setAttribute("providerId", foundProvider.getProviderId());
+        return "redirect:/providers/home?providerId=" + foundProvider.getProviderId();
     }
 
     @GetMapping("/home")
-    public String showProviderHome(@RequestParam(required = false) Integer providerId, Model model) {
-        if (providerId == null) {
-            return "redirect:/providers/login-page";
+    public String showProviderHome(HttpSession session, Model model) {
+        Provider provider = (Provider) session.getAttribute("loggedInProvider");
+        if (provider == null) {
+            return "redirect:/providers/login";
         }
 
-        Provider provider = providerService.getProviderById(providerId);
-        model.addAttribute("providerId", providerId);
+        //Provider provider = providerService.getProviderById(providerId);
+        model.addAttribute("providerId", provider.getProviderId());
         model.addAttribute("provider", provider);
 
 
@@ -143,4 +128,37 @@ public class ProviderController {
         return "provider/home";
     }
 
+    @GetMapping("/profile")
+    public String viewProfile(HttpSession session, Model model) {
+        Provider provider = (Provider) session.getAttribute("loggedInProvider");
+        if (provider == null) {
+            return "redirect:/providers/login";
+        }
+        //List<CarService> providerServices = carServiceService.getServicesByProviderId(providerId);
+
+        model.addAttribute("provider", provider);
+        model.addAttribute("providerServices", carServiceService.getServicesByProviderId(provider.getProviderId()));
+        model.addAttribute("title", "Profile: " + provider.getProvidername());
+        return "provider/profile";
+    }
+
+    @GetMapping("/edit")
+    public String editForm(@PathVariable int providerId, Model model) {
+        Provider provider = providerService.getProviderById(providerId);
+        model.addAttribute("provider", provider);
+        model.addAttribute("title", "Edit Profile");
+        return "provider/profile-edit";
+    }
+
+    @PostMapping("/update")
+    public String updateProvider(@PathVariable int providerId, Provider provider) {
+        providerService.updateProvider(providerId, provider);
+        return "redirect:/providers/profile/" + providerId;
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/providers/login";
+    }
 }

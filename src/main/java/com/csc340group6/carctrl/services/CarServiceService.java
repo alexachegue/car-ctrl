@@ -35,6 +35,10 @@ public class CarServiceService {
         return carServiceRepository.findById(id).orElse(null);
     }
 
+    public List<CarService> getAllServices() {
+        return serviceRepository.findAll();
+    }
+
     public CarService getServiceById(int serviceId) {
         return serviceRepository.findById(serviceId).orElse(null);
     }
@@ -61,6 +65,4 @@ public class CarServiceService {
     public void saveService(CarService service) {
         serviceRepository.save(service);
     }
-
-
 }

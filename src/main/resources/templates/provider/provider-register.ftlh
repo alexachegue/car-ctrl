@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>CarCtrl Home</title>
+    <title>CarCtrl</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="card-body">
-                    <form method="post" action="/providers/register-form">
+                    <form method="post" action="/providers/register">
                         <div class="mb-3">
                             <label class="form-label">Username</label>
                             <input class="form-control" type="text" name="providername" required>
@@ -42,6 +42,9 @@
                             <label class="form-label">Phone Number</label>
                             <input class="form-control" type="text" name="phone">
                         </div>
+
+                        <input type="hidden" name="status" value="ACTIVE">
+
                         <button class="btn btn-primary w-100">Register</button>
                     </form>
                 </div>

@@ -18,40 +18,30 @@
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-
             <div class="card shadow rounded-4">
                 <div class="card-header text-white text-center rounded-top-4">
-                    <h3>Register</h3>
+                    <h3>Login</h3>
                 </div>
-
                 <div class="card-body">
-                    <form method="post" action="/users/register-form" enctype="multipart/form-data">
+                    <form method="post" action="/providers/login">
                         <div class="mb-3">
-                            <label class="form-label">Username</label>
-                            <input class="form-control" type="text" name="username" required>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">Password</label>
-                            <input class="form-control" type="password" name="password" required>
+                            <label for="providername" class="form-label">Username</label>
+                            <input type="text" class="form-control" id="providername" name="providername" required>
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Email</label>
-                            <input class="form-control" type="email" name="email">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" name="password" required>
                         </div>
-                        <div class="mb-3">
-                            <label class="form-label">Phone Number</label>
-                            <input class="form-control" type="text" name="phoneNumber">
-                        </div>
-                        <div>
-                            <label class ="form-label">Profile Picture:</label>
-                            <input type="file" name="fileUpload" accept="image/*"><br>
-                        </div>
-                        <button class="btn btn-primary w-100">Register</button>
+                        <button type="submit" class="btn btn-primary w-100">Login</button>
                     </form>
+                    <div class="text-center mt-3">
+                        Don't have an account? <a href="/providers/register">Register</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </div>
 </body>
 </html>

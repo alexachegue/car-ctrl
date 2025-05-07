@@ -1,6 +1,7 @@
 package com.csc340group6.carctrl.reviews;
 
 import com.csc340group6.carctrl.provider.Provider;
+import com.csc340group6.carctrl.reply.Reply;
 import com.csc340group6.carctrl.subscription.Appointment;
 import com.csc340group6.carctrl.user.User;
 import jakarta.persistence.*;
@@ -28,6 +29,9 @@ public class Review {
     @ManyToOne
     @JoinColumn(name = "provider_id", nullable = false)
     private Provider provider;
+
+    @OneToOne(mappedBy = "review", cascade = CascadeType.ALL)
+    private Reply reply;
 
     private int rating;
 
@@ -92,7 +96,17 @@ public class Review {
     public Timestamp getCreatedAt() {
         return createdAt; }
 
-    public void setCreatedAt(Timestamp time){
+    public void setCreatedAt(Timestamp time) {
         this.createdAt = time;
     }
+
+    public Reply getReply() {
+        return reply;
+    }
+
+    public void setReply(Reply reply) {
+        this.reply = reply;
+    }
+
+
 }

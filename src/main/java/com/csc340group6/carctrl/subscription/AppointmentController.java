@@ -138,13 +138,59 @@ public class AppointmentController {
     /**
      * PROVIDER MVC
      */
-    @GetMapping ("/appointments")
-    public String showAppointments(@RequestParam("providerId") int providerId, Model model) {
-        List<Appointment> appointments = appointmentService.getAppointmentsByProviderId(providerId);
+    @GetMapping
+    public String showAppointments(HttpSession session, Model model) {
+        Provider provider = (Provider) session.getAttribute("loggedInProvider");
+        if (provider == null) {
+            return "redirect:/providers/login";
+        }
+
+        List<Appointment> appointments = appointmentService.getAppointmentsByProviderId(provider.getProviderId());
         model.addAttribute("appointments", appointments);
-        model.addAttribute("providerId", providerId);
+        model.addAttribute("providerId", provider.getProviderId());
         model.addAttribute("title", "Appointments");
         return "provider/appointment-list";
+    }
+
+    @PostMapping("/accept")
+    public String acceptAppointment(@RequestParam("appointmentId") int appointmentId, HttpSession session) {
+        Appointment appointment = appointmentService.getAppointmentById(appointmentId);
+        if (appointment == null) return "redirect:/appointments";
+
+        // Make sure the current status is "PENDING"
+        if (appointment.getStatus() == Appointment.Status.Pending) {
+            appointment.setStatus(Appointment.Status.Scheduled);
+            appointmentService.saveAppointment(appointment);
+
+            // send alert to customer
+            int userId = appointment.getUser().getUserId();
+            int providerId = appointment.getProvider().getProviderId();
+            alertService.createAlertForUser(providerId, userId, appointmentId, Alert.AlertType.success, "Your appointment has been scheduled.");
+        }
+
+        return "redirect:/appointments";
+    }
+
+
+
+    @GetMapping("/all")
+    public List<Appointment> getAllAppointments() {
+        return appointmentService.getAllAppointments();
+    }
+
+    @GetMapping("/user/{userId}")
+    public List<Appointment> getAppointmentsByUserId(@PathVariable int userId) {
+        return appointmentService.getAppointmentsByUserId(userId);
+    }
+
+    @GetMapping("/{id}")
+    public Appointment getAppointment(@PathVariable int id) {
+        return appointmentService.getAppointmentById(id);
+    }
+
+    @PutMapping("/update/{id}")
+    public Appointment updateAppointment(@PathVariable int id, @RequestBody Appointment updated) {
+        return appointmentService.updateAppointment(id, updated);
     }
 
     @DeleteMapping("/delete/{id}")
@@ -152,5 +198,4 @@ public class AppointmentController {
         appointmentService.deleteAppointment(id);
         return ResponseEntity.ok().build();
     }
-
 }

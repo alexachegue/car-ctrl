@@ -39,9 +39,18 @@ public class AppointmentService {
         return appointmentRepository.findAppointmentByUser_UserId(userId);
     }
 
+    public List<Appointment> getAppointmentsByProviderId(int providerId) {
+        return appointmentRepository.getAppointmentsByProvider(providerId);
+    }
+
     public Appointment getAppointmentById(int id) {
         return appointmentRepository.findById(id).orElse(null);
     }
+
+    public void saveAppointment(Appointment appointment) {
+        appointmentRepository.save(appointment);
+    }
+
 
     public Appointment createAppointment(Appointment appointment) {
         User user = userRepository.findById(appointment.getUser().getUserId())
@@ -74,9 +83,5 @@ public class AppointmentService {
 
     public void deleteAppointment(int id) {
         appointmentRepository.deleteById(id);
-    }
-
-    public List<Appointment> getAppointmentsByProviderId(int providerId) {
-        return appointmentRepository.getAppointmentsByProvider(providerId);
     }
 }
