@@ -13,13 +13,13 @@ An application that connects customers with local mechanics and auto service pro
 ### First page 
 http://localhost:8081/users/
 
-### User login
-username: may6user
-password: pw
+### User login (already in the database)
+username: may6user  
+password: pw  
 
 ### Provider login
-username: ModKing1
-password: pass123
+username: ModKing1  
+password: pass123  
 
 ## Scenario Summary
 Provider: Create provider profile
