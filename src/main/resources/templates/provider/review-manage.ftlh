@@ -37,37 +37,34 @@
             </div>
             </div>
 
-            <div class="reviews-list">
-                <#list reviews as review>
-                <div class="card mb-3">
-                    <div class="card-body">
-                        <p><strong>Customer:</strong> ${review.user.username}</p>
-                        <p><strong>Rating:</strong> ${review.rating}</p>
-                        <p><strong>Review:</strong> ${review.description}</p>
-                        <p><strong>Date:</strong> ${review.createdAt?string("MMM dd, yyyy HH:mm")}</p>
+        <div class="reviews-list">
+            <#list reviews as review>
+            <div class="card mb-3">
+                <div class="card-body">
+                    <p><strong>Customer:</strong> ${review.user.username}</p>
+                    <p><strong>Rating:</strong> ${review.rating}</p>
+                    <p><strong>Review:</strong> ${review.description}</p>
+                    <p><strong>Date:</strong> ${review.createdAt?string("MMM dd, yyyy HH:mm")}</p>
 
-                        <#if review.reply??>
-                        <p><em><strong>Reply:</strong> ${review.reply.message}</em></p>
-
-                        <!-- Update/Delete Reply -->
-                        <form action="/replies/create" method="post" class="mb-2">
-                            <input type="hidden" name="reviewId" value="${review.reviewId}">
-                            <textarea class="form-control mb-2" name="message" rows="2">${review.reply.message}</textarea>
-                            <button type="submit" class="btn btn-warning btn-sm">Update Reply</button>
-                        </form>
-                        <form action="/replies/delete/${review.reply.replyId}" method="post" onsubmit="return confirm('Delete this reply?');">
-                            <input type="hidden" name="_method" value="delete">
-                            <button type="submit" class="btn btn-danger btn-sm">Delete Reply</button>
-                        </form>
-                        <#else>
-                        <!-- New Reply -->
-                        <form action="/replies/create" method="post">
-                            <input type="hidden" name="reviewId" value="${review.reviewId}">
-                            <textarea class="form-control mb-2" name="message" rows="2" placeholder="Write your reply..."></textarea>
-                            <button type="submit" class="btn btn-primary btn-sm">Submit Reply</button>
-                        </form>
-                    </#if>
-                </div>
+                    <#if review.reply??>
+                    <p><strong>Reply:</strong> ${review.reply.message}</p>
+                    <form action="/replies/create" method="post" class="mb-2">
+                        <input type="hidden" name="reviewId" value="${review.reviewId}">
+                        <textarea class="form-control mb-2" name="message" rows="2">${review.reply.message}</textarea>
+                        <button type="submit" class="btn btn-warning btn-sm">Update Reply</button>
+                    </form>
+                    <form method="post" action="/replies/delete/${review.reply.replyId}">
+                        <button class="btn btn-danger btn-sm">Delete Reply</button>
+                    </form>
+                    <#else>
+                    <form action="/replies/create" method="post">
+                        <input type="hidden" name="reviewId" value="${review.reviewId}">
+                        <textarea class="form-control mb-2" name="message" rows="2" placeholder="Write your reply..."></textarea>
+                        <button type="submit" class="btn btn-primary btn-sm">Submit Reply</button>
+                    </form>
+                </#if>
+            </div>
+        </div>
             </div>
         </#list>
     </div>

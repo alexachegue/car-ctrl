@@ -70,14 +70,33 @@ public class ReplyController {
         return ResponseEntity.ok(replyService.saveReply(reply));
     }
 
-    @DeleteMapping("/delete/{replyId}")
-    public ResponseEntity<Void> deleteReply(@PathVariable int replyId) {
-        if (replyService.getReplyById(replyId).isEmpty()) {
-            return ResponseEntity.notFound().build();
+    @PostMapping("/delete/{replyId}")
+    public String deleteReplyForm(@PathVariable int replyId) {
+        System.out.println("Deleting reply with ID: " + replyId);
+
+        Optional<Reply> replyOpt = replyService.getReplyById(replyId);
+        if (replyOpt.isPresent()) {
+            Reply reply = replyOpt.get();
+
+            Review review = reply.getReview();
+            if (review != null) {
+                review.setReply(null);
+            }
+
+            replyService.deleteReply(replyId);
         }
 
-        replyService.deleteReply(replyId);
-        return ResponseEntity.noContent().build();
+        return "redirect:/reviews/manage";
     }
+
+//    @DeleteMapping("/delete/{replyId}")
+//    public ResponseEntity<Void> deleteReply(@PathVariable int replyId) {
+//        if (replyService.getReplyById(replyId).isEmpty()) {
+//            return ResponseEntity.notFound().build();
+//        }
+//
+//        replyService.deleteReply(replyId);
+//        return ResponseEntity.noContent().build();
+//    }
 
 }
