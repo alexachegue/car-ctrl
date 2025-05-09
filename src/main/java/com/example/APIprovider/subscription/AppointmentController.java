@@ -185,10 +185,6 @@ public class AppointmentController {
         return appointmentService.getAppointmentById(id);
     }
 
-//    @PostMapping("/create")
-//    public Appointment createAppointment(@RequestBody Appointment appointment) {
-//        return appointmentService.createAppointment(appointment);
-//    }
 
     @PutMapping("/update/{id}")
     public Appointment updateAppointment(@PathVariable int id, @RequestBody Appointment updated) {

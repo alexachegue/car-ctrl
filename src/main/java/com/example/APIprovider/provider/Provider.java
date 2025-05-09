@@ -39,13 +39,10 @@ public class Provider {
 
     private String bio;
 
-    //private String status;
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private ProviderStatus status;
 
-
-    //@Column(name = "active_date")
     @Temporal(TemporalType.TIMESTAMP)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     @DateTimeFormat(pattern = "yyyy-MM-dd")

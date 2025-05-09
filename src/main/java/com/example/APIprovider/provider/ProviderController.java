@@ -49,8 +49,7 @@ public class ProviderController {
         providerService.addNewProvider(provider);
         session.setAttribute("loggedInProvider",provider);
         session.setAttribute("providerId",provider.getProviderId());
-//        providerService.addNewProvider(provider);
-//        session.setAttribute("loggedInProvider", provider);
+
         return "redirect:/providers/login";
     }
 
