@@ -1,6 +1,8 @@
 package com.csc340group6.carctrl.provider;
 import com.csc340group6.carctrl.services.CarService;
 import com.csc340group6.carctrl.services.CarServiceService;
+import com.csc340group6.carctrl.stats.ServiceStats;
+import com.csc340group6.carctrl.stats.StatsService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,9 @@ public class ProviderController {
     @Autowired
     private CarServiceService carServiceService;
 
+    @Autowired
+    private StatsService statsService;
+
     /**
      * CUSTOMER MVC
      */
@@ -35,6 +40,7 @@ public class ProviderController {
      * @param model
      * @return
      */
+
     @GetMapping("/by-service/{serviceId}")
     public String getProvidersByService(@PathVariable int serviceId, Model model) {
         List<Provider> providers = providerService.getProvidersByService(serviceId);
@@ -74,8 +80,6 @@ public class ProviderController {
         providerService.addNewProvider(provider);
         session.setAttribute("loggedInProvider",provider);
         session.setAttribute("providerId",provider.getProviderId());
-//       providerService.addNewProvider(provider);
-//        session.setAttribute("loggedInProvider", provider);
         return "redirect:/providers/login";
     }
 
@@ -106,12 +110,9 @@ public class ProviderController {
             return "redirect:/providers/login";
         }
 
-        //Provider provider = providerService.getProviderById(providerId);
         model.addAttribute("providerId", provider.getProviderId());
         model.addAttribute("provider", provider);
 
-
-        // Completion percentage calculation
         int filledFields = 0;
         int totalFields = 6;
 
@@ -151,9 +152,22 @@ public class ProviderController {
     }
 
     @PostMapping("/update")
-    public String updateProvider(@PathVariable int providerId, Provider provider) {
+    public String updateProvider(@RequestParam int providerId, @ModelAttribute Provider provider) {
         providerService.updateProvider(providerId, provider);
-        return "redirect:/providers/profile/" + providerId;
+        return "redirect:/providers/profile";
+    }
+
+    @GetMapping("/stats")
+    public String viewStats(HttpSession session, Model model) {
+        Provider provider = (Provider) session.getAttribute("loggedInProvider");
+        if (provider == null) {
+            return "redirect:/providers/login";
+        }
+
+        List<ServiceStats> stats = statsService.getProviderStats(provider.getProviderId());
+
+        model.addAttribute("stats", stats);
+        return "provider/statistics";
     }
 
     @PostMapping("/logout")

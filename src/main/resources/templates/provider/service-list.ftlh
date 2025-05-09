@@ -12,13 +12,15 @@
 <div class="container-fluid">
     <!-- Sidebar -->
     <nav class="sidebar">
-        <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4" style="max-width: 100%;">
+        <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4"
+             style="display: block; margin: 0 auto 20px auto; max-width: 80px; height: auto;">
         <a class="nav-link" href="/providers/home"><i class="bi bi-house-door"></i> Home</a>
         <a class="nav-link" href="/providers/profile"><i class="bi bi-person"></i> Profile</a>
         <a class="nav-link" href="/appointments"><i class="bi bi-calendar-check"></i> Appointments</a>
         <a class="nav-link active" href="/services/services"><i class="bi bi-tools"></i> Services</a>
         <a class="nav-link" href="/alerts"><i class="bi bi-bell"></i> Alerts</a>
         <a class="nav-link" href="/reviews/manage"><i class="bi bi-chat-left-text"></i> Reviews</a>
+        <a class="nav-link" href="/providers/stats"><i class="bi bi-graph-up"></i> View Statistics</a>
     </nav>
 
     <!-- Main Content -->
@@ -36,7 +38,7 @@
                 <div class="card h-100">
                     <div class="card-body text-center">
                         <h5 class="card-title">${service.name}</h5>
-
+                        <p class="card-text"><strong>Category:</strong> ${service.serviceCategory}</p>
                         <p class="card-text">${service.description}</p>
                         <form method="post" action="/service/unassign">
                             <input type="hidden" name="serviceId" value="${service.serviceId}">
@@ -60,9 +62,9 @@
         <div class="card h-100">
             <div class="card-body text-center">
                 <h5 class="card-title">${service.name}</h5>
-                <p class="card-text"><strong>Category:</strong>${service.category!"N/A"}</p>
+                <p class="card-text"><strong>Category:</strong> ${service.serviceCategory}</p>
                 <p class="card-text">${service.description}</p>
-                <form method="post" action="/services/assign">
+                <form method="post" action="/service/assign">
                     <input type="hidden" name="serviceId" value="${service.serviceId}">
                     <input type="hidden" name="providerId" value="${provider.providerId}">
                     <button class="btn btn-primary btn-sm mt-2">Add This Service</button>

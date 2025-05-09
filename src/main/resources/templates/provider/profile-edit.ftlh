@@ -13,12 +13,15 @@
 <div class="container-fluid">
     <!-- Sidebar -->
     <nav class="sidebar">
+        <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4"
+             style="display: block; margin: 0 auto 20px auto; max-width: 80px; height: auto;">
         <a class="nav-link" href="/providers/home"><i class="bi bi-house-door"></i> Home</a>
         <a class="nav-link" href="/providers/profile"><i class="bi bi-person"></i> Profile</a>
         <a class="nav-link" href="/appointments"><i class="bi bi-calendar-check"></i> Appointments</a>
         <a class="nav-link" href="/services/services"><i class="bi bi-tools"></i> Services</a>
         <a class="nav-link" href="/alerts"><i class="bi bi-bell"></i> Alerts</a>
         <a class="nav-link" href="/reviews/manage"><i class="bi bi-chat-left-text"></i> Reviews</a>
+        <a class="nav-link" href="/providers/stats"><i class="bi bi-graph-up"></i> View Statistics</a>
     </nav>
 
 
@@ -26,7 +29,9 @@
     <div class="main-content">
         <h2>Edit Provider Profile</h2>
 
-        <form method="post" action="/providers/update/${provider.providerId}">
+        <form action="/providers/update" method="post">
+            <input type="hidden" name="providerId" value="${provider.providerId}">
+
             <div class="mb-3">
                 <label for="providername">Name</label>
                 <input type="text" class="form-control" id="providername" name="providername" value="${provider.providername}">
@@ -73,7 +78,7 @@
     </div>
 
     <button type="submit" class="btn btn-primary">Save Changes</button>
-    <a href="/providers/profile/${provider.providerId}" class="btn btn-outline-danger">Cancel</a>
+    <a href="/providers/profile" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
 </div>

@@ -3,8 +3,6 @@ package com.csc340group6.carctrl.services;
 import com.csc340group6.carctrl.provider.Provider;
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity(name="CarService")
 @Table(name = "services")
 public class CarService {

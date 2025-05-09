@@ -67,11 +67,10 @@ public class AlertController {
     }
 
 
-    //  Delete an alert by ID (triggered from UI form)
     @PostMapping("/delete/{alertId}")
     public String deleteAlert(@PathVariable int alertId) {
         alertService.deleteAlertById(alertId);
-        return "redirect:/alerts?providerId=4"; // Replace with dynamic if needed
+        return "redirect:/alerts?providerId=4";
     }
 
 }

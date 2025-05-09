@@ -18,14 +18,16 @@
 
 <header class="header">CarCtrl – Provider</header>
 <div class="d-flex">
-    <nav class="nav flex-column p-3 vh-100 text-white" style="width: 250px; position: fixed;">
-        <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4" style="max-width: 100%;">
+    <nav class="sidebar">
+        <img src="/images/carcontrollogo.png" alt="CarCtrl Logo" class="nav-logo mb-4"
+             style="display: block; margin: 0 auto 20px auto; max-width: 80px; height: auto;">
         <a class="nav-link" href="/providers/home"><i class="bi bi-house-door"></i> Home</a>
         <a class="nav-link" href="/providers/profile"><i class="bi bi-person"></i> Profile</a>
         <a class="nav-link" href="/appointments"><i class="bi bi-calendar-check"></i> Appointments</a>
         <a class="nav-link" href="/services/services"><i class="bi bi-tools"></i> Services</a>
         <a class="nav-link active" href="/alerts"><i class="bi bi-bell"></i> Alerts</a>
         <a class="nav-link" href="/reviews/manage"><i class="bi bi-chat-left-text"></i> Reviews</a>
+        <a class="nav-link" href="/providers/stats"><i class="bi bi-graph-up"></i> View Statistics</a>
     </nav>
 
     <div class="container mt-4" style="margin-left: 270px;">

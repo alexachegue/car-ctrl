@@ -57,7 +57,11 @@ public class CarServiceController {
         int providerId = (int) providerIdObj;
 
         Provider provider = providerService.getProviderById(providerId);
-        List<CarService> providerServices = serviceService.getServicesByProviderId(providerId);
+        List<CarService> providerServices = serviceService.getServicesByProviderId(providerId)
+                .stream()
+                .sorted((a, b) -> Integer.compare(b.getServiceId(), a.getServiceId()))
+                .toList();
+
         List<CarService> unassignedServices = serviceService.getUnassignedServices();
 
         model.addAttribute("provider", provider);
@@ -83,13 +87,19 @@ public class CarServiceController {
         return "provider/service-add";
     }
 
-    @PostMapping("/assign")
-    public ResponseEntity<String> assignServiceToProvider(
-            @RequestParam int serviceId,
-            @RequestParam int providerId) {
-        serviceService.assignServiceToProvider(serviceId, providerId);
-        return new ResponseEntity<>("Service successfully assigned to provider", HttpStatus.OK);
-    }
+//    @PostMapping("/assign")
+//    public ResponseEntity<String> assignServiceToProvider(
+//            @RequestParam int serviceId,
+//            @RequestParam int providerId) {
+//        serviceService.assignServiceToProvider(serviceId, providerId);
+//        return new ResponseEntity<>("Service successfully assigned to provider", HttpStatus.OK);
+//    }
+@PostMapping("/assign")
+public String assignServiceToProvider(@RequestParam int serviceId, @RequestParam int providerId) {
+    serviceService.assignServiceToProvider(serviceId, providerId);
+    return "redirect:/service/services";
+}
+
 
     @PostMapping("/unassign")
     public String unassignServiceFromProvider(@RequestParam int serviceId, HttpSession session) {

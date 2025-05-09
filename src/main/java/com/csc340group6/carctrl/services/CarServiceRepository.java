@@ -1,5 +1,6 @@
 package com.csc340group6.carctrl.services;
 
+import com.csc340group6.carctrl.provider.Provider;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -15,4 +16,6 @@ public interface CarServiceRepository extends JpaRepository<CarService, Integer>
 
     List<CarService> findByProviderIsNull();
     List<CarService> findByProvider_ProviderId(int providerId);
+
+    List<CarService> findByProvider(Provider provider);
 }

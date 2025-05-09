@@ -157,12 +157,10 @@ public class AppointmentController {
         Appointment appointment = appointmentService.getAppointmentById(appointmentId);
         if (appointment == null) return "redirect:/appointments";
 
-        // Make sure the current status is "PENDING"
         if (appointment.getStatus() == Appointment.Status.Pending) {
             appointment.setStatus(Appointment.Status.Scheduled);
             appointmentService.saveAppointment(appointment);
 
-            // send alert to customer
             int userId = appointment.getUser().getUserId();
             int providerId = appointment.getProvider().getProviderId();
             alertService.createAlertForUser(providerId, userId, appointmentId, Alert.AlertType.success, "Your appointment has been scheduled.");
@@ -170,8 +168,6 @@ public class AppointmentController {
 
         return "redirect:/appointments";
     }
-
-
 
     @GetMapping("/all")
     public List<Appointment> getAllAppointments() {
