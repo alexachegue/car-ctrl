@@ -74,7 +74,6 @@
     </div>
     </div>
 
-    <!-- Method Spoofing Script for DELETE -->
     <script>
         document.querySelectorAll('form').forEach(form => {
             if (form.querySelector('input[name="_method"][value="delete"]')) {

@@ -68,26 +68,6 @@ public class Appointment {
         this.appointmentDate = appointmentDate;
     }
 
-//    public int getAppointmentId() { return appointmentId; }
-//
-//    public User getUser() { return user; }
-//    public void setUser(User user) { this.user = user; }
-//
-//    public Service getService() { return service; }
-//    public void setService(Service service) { this.service = service; }
-//
-//    public Car getCar() { return car; }
-//    public void setCar(Car car) { this.car = car; }
-//
-//    public String getDescription() { return description; }
-//    public void setDescription(String description) { this.description = description; }
-//
-//    public Date getAppointmentDate() { return appointmentDate; }
-//    public void setAppointmentDate(Date appointmentDate) { this.appointmentDate = appointmentDate; }
-//
-//    public String getStatus() { return status; }
-//    public void setStatus(String status) { this.status = status; }
-
     public int getAppointmentId(){
         return appointmentId; }
 

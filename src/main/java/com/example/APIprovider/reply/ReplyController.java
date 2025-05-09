@@ -35,26 +35,6 @@ public class ReplyController {
         return reply.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-
-
-    /**
-     @PostMapping("/create")
-     public ResponseEntity<Reply> createReply(@RequestBody ReplyRequest request) {
-     // Use request.getId() instead of request.getReviewId()
-
-
-     Optional<Review> review = reviewRepository.findById(request.getId());
-
-     if (review.isEmpty()) {
-     return ResponseEntity.badRequest().build();
-     }
-
-     Reply reply = new Reply(request.getMessage(), review.get());
-     return ResponseEntity.ok(replyService.saveReply(reply));
-     }
-
-     **/
-
     @PostMapping("/create")
     public String createOrUpdateReply(
             @RequestParam("reviewId") int reviewId,
